@@ -106,16 +106,38 @@ module.exports = function(app, express) {
 		});
 
     // ================= /me - user information =================
-	apiRouter.get('/me', function(req, res) { res.send(req.decoded); });
+	apiRouter.get('/me', function(req, res) {
+        User.findOne({ name: req.decoded.name}, function(err, user) {
+            if (err) res.send(err);
+            res.json(user);	                                                                        			// return the users
+        });
+
+
+    });
 
 
     // ================= /searches =================
     apiRouter.route('/searches')
 
         .get(function(req, res) {
-            User.findOne({ name: 'suzie'}, function(err, user) {
-                if (err) res.send(err);
-                res.json(user.searches);	                                                                        			// return the users
+            User.findOne({ name: req.decoded.name}, function(err, user) {
+                res.json(user.searches);
+
+
+
+
+    /*            var party = { _id: "chessparty"
+                    , name: "Chess Party!"
+                    , attendees: ["seanhess", "bob"] }
+                var user = { _id: "seanhess", name: "Sean Hess", events: ["chessparty"]}
+                db.events.save(party)
+                db.users.save(user)
+
+                db.events.find({_id: {$in: user.events}}) // events for user
+                db.users.find({_id: {$in: party.attendees}}) // users for event
+*/
+
+
             });
         });
 
