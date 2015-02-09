@@ -1,0 +1,3 @@
+{ "_id" : { "$oid" : "54d890b1185ed11d95e4a7c1" }, "password" : "$2a$10$s.Rdp3xbbgVrIZJTcfaNYe3LLY9q/IhJ5PIGBZLr7Tz3PkyqXnLC2", "username" : "aze", "name" : "aze", "searches" : [ { "query" : "paris" }, { "query" : "berlin" } ], "__v" : 0 }
+{ "_id" : { "$oid" : "54d890c4185ed11d95e4a7c2" }, "password" : "$2a$10$sfm6fLoZ1rse2qRv1oRMtuiQMS8o8rfKKv00Cd6tZRSRwEjdYoFBi", "username" : "gilles", "name" : "gilles", "searches" : [ { "query" : "paris" }, { "query" : "berlin" } ], "__v" : 0 }
+{ "_id" : { "$oid" : "54d88f45c399e54d947ccecc" }, "password" : "$2a$10$TiWDIK2EX33/wMoFelZ9UOk7bV7qo59uyJSySTCQYuwAJtsj.2pTC", "username" : "suzie", "email" : "suzie.sirena@gmail.com", "name" : "suzie", "searches" : [ { "query" : "paris" }, { "query" : "berlin" } ], "__v" : 0 }
