@@ -4,15 +4,14 @@ var bcrypt 		 = require('bcrypt-nodejs');
 
 
 // ================= user schema =================
-var searchesSchema = new Schema({ query: String });
-
 
 var UserSchema   = new Schema({
 	name    : String,
     email   : { type: String, required: true, index: { unique: true }},
     username: { type: String },
 	password: { type: String, required: true, select: false },
-    searches: { type: [searchesSchema] }
+    searches:[{ type:Schema.ObjectId, ref:"Search" }]
+
 });
 
 UserSchema.pre('save', function(next) {                                                                                 // hash the password before the user is saved

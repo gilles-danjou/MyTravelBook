@@ -6,8 +6,7 @@ var mongoose = require("mongoose"),
 
 var ChildSchema = new Schema({
     'name' : String,
-    parent: { type:Schema.ObjectId, ref:"Parent", childPath:"children" }
+    parents: [{ type:Schema.ObjectId, ref:"Parent", childPath:"children" }]
 });
-ChildSchema.plugin(relationship, { relationshipPathName:'parent' });
-
+ChildSchema.plugin(relationship, { relationshipPathName:'parents' });
 module.exports = mongoose.model('Child', ChildSchema);

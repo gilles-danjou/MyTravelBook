@@ -1,15 +1,4 @@
-/**
- * Created by GDanjou on 09/02/15.
- */
 
-
-/*var User       = require('./models/user');
-var Search       = require('./models/search');
-
-
-var user = User.findOne({'name': 'suzie'}, function(err, user) {
- console.log(user.searches);	                                                                        			// return the users
-});*/
 var mongoose = require("mongoose"),
     Schema = mongoose.Schema,
     relationship = require("mongoose-relationship");
@@ -22,28 +11,56 @@ var Child      = require('./app/models/Child');
 mongoose.connect('mongodb://localhost:27017/mytravelbook');                                                                                      // connect to our database (hosted on modulus.io)
 
 
-//var parent = new Parent({'name' : 'hyacinthe'});
-//parent.save();
-//var child = new Child({parent:parent._id, 'name' : 'Gilles'});
-//child.save();
+// example of many-to many
 
-Parent.findOne({'name':'hyacinthe'}).populate('children').exec(function(err,data){
-        console.log(data.children);
-        process.exit();
-});
+/*
+var parent = new Parent({'name' : 'p1'});
+parent.save();
+
+var parentTwo = new Parent({'name' : 'p2'});;
+parentTwo.save();
+
+var child1 = new Child({'name' : 'c1'});;
+child1.parents.push(parent);
+child1.parents.push(parentTwo);
+child1.save()
+parent.children.push(child1);
+parent.save();
+
+var child2 = new Child({'name' : 'c2'});;
+child2.parents.push(parent);
+child2.parents.push(parentTwo);
+child2.save()
+parent.children.push(child2);
+parentTwo.children.push(child2);
+parent.save();
+parentTwo.save();
+
+var child3 = new Child({'name' : 'c3'});;
+child3.parents.push(parent);
+child3.save()
+parent.children.push(child3);
+parent.save();
+*/
+
+Parent
+    .findOne({'name' : 'p1'})
+    .populate('children', 'name')
+    .exec(function (err, result) {
+        console.log(result.children)
+        process.exit(0);
+    });
 
 
+//Child
+//  .findOne({'name' : 'c1'})
+//  .populate('parents', 'name')
+//  .exec(function (err, result) {
+//      console.log(result.parents)
+//      process.exit(0);
+//  });
 
-
-/*            var party = { _id: "chessparty"
- , name: "Chess Party!"
- , attendees: ["seanhess", "bob"] }
- var user = { _id: "seanhess", name: "Sean Hess", events: ["chessparty"]}
- db.events.save(party)
- db.users.save(user)
-
- db.events.find({_id: {$in: user.events}}) // events for user
- db.users.find({_id: {$in: party.attendees}}) // users for event
- */
-
-
+//mongoose.connection.close(function () {
+//    console.log('Mongoose disconnected on app termination');
+//    process.exit(0);
+//});

@@ -129,13 +129,35 @@ module.exports = function(app, express) {
             var search = new Search();
             search.query = req.body.query;
 
-            search.save(function(err) {
-                if (err) {
-                    if (err.code == 11000) return res.json({ success: false, message: 'A search with that query already exists. '});
-                    else return res.send(err);
-                }
-                res.json({ message: 'Search created!' });
-            });
+           Search.findOne({'query': req.body.query}, function (err, r) {
+               if (err) { console.log(err.name); return; }
+               debugger
+               if (!search) {
+
+                   search.save(function(err) {
+                       if (err) {
+                           if (err.code == 11000) return res.json({ success: false, message: 'A search with that query already exists. '});
+                           else return res.send(err);
+                       }
+                       res.json({ message: 'Search created!' });
+                   });
+
+               } else {
+                    console.log('Search found');
+                   res.json({ message: 'Search found!' });
+               }
+
+       });
+
+            //search.save(function(err) {
+            //    if (err) {
+            //        if (err.code == 11000) return res.json({ success: false, message: 'A search with that query already exists. '});
+            //        else return res.send(err);
+            //    }
+            //    res.json({ message: 'Search created!' });
+            //});
+
+
         });
 
 
@@ -150,15 +172,15 @@ module.exports = function(app, express) {
     apiRouter.route('/searches/:query')
 
         .get(function(req, res) {
-            if (req.params.query === 'mine'){
-                User.findOne({name: req.decoded.name}, function (err, user) {
-                    res.json(user.searches);
-                });
-            } else {
-                Search.find({'query' : req.params.query}, function (err, searches) {
-                    res.json(searches);
-                });
-            }
+            //if (req.params.query === 'mine'){
+            //    User.findOne({name: req.decoded.name}, function (err, user) {
+            //        res.json(user.searches);
+            //    });
+            //} else {
+            //    Search.find({'query' : req.params.query}, function (err, searches) {
+            //        res.json(searches);
+            //    });
+            //}
         })
 
     // ================= /test =================
