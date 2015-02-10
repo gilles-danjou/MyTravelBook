@@ -2,6 +2,24 @@
 
 	<div class="jumbotron">
 		<h1>All searchs</h1>
+
+        <form ng-submit="search.saveSearch()">
+
+            <div class="form-group">
+                <input value="paris" type="text" class="form-control" ng-model="search.searchData.query">
+            </div>
+
+            <div class="alert alert-danger" ng-if="search.error">
+                {{ search.error }}
+            </div>
+
+            <button type="submit" class="btn btn-block btn-primary">
+                <span ng-if="!search.processing">Search</span>
+                <span ng-if="search.processing" class="spinner"><span class="glyphicon glyphicon-repeat"></span></span>
+            </button>
+
+        </form>
+        
         <table class="table table-bordered table-striped" ng-show="search.searches">
             <thead>
             <tr>

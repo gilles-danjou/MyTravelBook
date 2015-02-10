@@ -1,6 +1,7 @@
 var bodyParser = require('body-parser'); 	// get body-parser
 var User       = require('../models/user');
-var Search       = require('../models/search');
+var Search     = require('../models/search');
+var Parent     = require('../models/test').parent;
 var jwt        = require('jsonwebtoken');
 var config     = require('../../config');
 
@@ -73,7 +74,7 @@ module.exports = function(app, express) {
 		});
 
 // ================= /users/:user_id =================
-	apiRouter.route('/users/:user_id')
+    apiRouter.route('/users/:user_id')
 
 		.get(function(req, res) {		// get the user with that id
             User.findById(req.params.user_id, function(err, user) {
@@ -82,7 +83,7 @@ module.exports = function(app, express) {
             });
 		})
 
-// ================= Update the user =================
+// ================= Update the user
 		.put(function(req, res) {
 			User.findById(req.params.user_id, function(err, user) {
 				if (err) res.send(err);
@@ -97,7 +98,7 @@ module.exports = function(app, express) {
 			});
 		})
 
-// ================= Delete the user =================
+// ================= Delete the user
 		.delete(function(req, res) {
 			User.remove({ _id: req.params.user_id }, function(err, user) {
 				if (err) res.send(err);
@@ -106,41 +107,74 @@ module.exports = function(app, express) {
 		});
 
     // ================= /me - user information =================
-	apiRouter.get('/me', function(req, res) {
+
+   apiRouter.get('/me', function(req, res) {
         User.findOne({ name: req.decoded.name}, function(err, user) {
             if (err) res.send(err);
             res.json(user);	                                                                        			// return the users
         });
-
-
     });
 
-
     // ================= /searches =================
-    apiRouter.route('/searches')
+   apiRouter.route('/searches')
 
         .get(function(req, res) {
-            User.findOne({ name: req.decoded.name}, function(err, user) {
+            User.findOne({name: req.decoded.name}, function (err, user) {
                 res.json(user.searches);
 
 
+                })
+            })
 
+        .post(function(req, res) {
+            var search = new Search();
+            search.query = req.body.query;
 
-    /*            var party = { _id: "chessparty"
-                    , name: "Chess Party!"
-                    , attendees: ["seanhess", "bob"] }
-                var user = { _id: "seanhess", name: "Sean Hess", events: ["chessparty"]}
-                db.events.save(party)
-                db.users.save(user)
-
-                db.events.find({_id: {$in: user.events}}) // events for user
-                db.users.find({_id: {$in: party.attendees}}) // users for event
-*/
-
-
+            search.save(function(err) {
+                if (err) {
+                    if (err.code == 11000) return res.json({ success: false, message: 'A search with that query already exists. '});
+                    else return res.send(err);
+                }
+                res.json({ message: 'Search created!' });
             });
         });
 
+    // ================= /test =================
+   apiRouter.route('/test')
 
-	return apiRouter;
+        .get(function(req, res) {
+            User.findOne({name: req.decoded.name}, function (err, user) {
+                res.json(user.searches);
+            });
+        })
+
+        .post(function(req, res) {
+            var search = new Search();
+            search.query = req.body.query;
+
+            search.save(function(err) {
+                if (err) {
+                    if (err.code == 11000) return res.json({ success: false, message: 'A search with that query already exists. '});
+                    else return res.send(err);
+                }
+                res.json({ message: 'Search created!' });
+            });
+        });
+
+   return apiRouter;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
