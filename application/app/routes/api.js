@@ -119,12 +119,11 @@ module.exports = function(app, express) {
    apiRouter.route('/searches')
 
         .get(function(req, res) {
-            User.findOne({name: req.decoded.name}, function (err, user) {
-                res.json(user.searches);
-
-
-                })
-            })
+           Search.find({}, function(err, searches) {
+               if (err) res.send(err);
+               res.json(searches);	                                                                        			// return the users
+           });
+       })
 
         .post(function(req, res) {
             var search = new Search();
@@ -138,6 +137,29 @@ module.exports = function(app, express) {
                 res.json({ message: 'Search created!' });
             });
         });
+
+
+    apiRouter.route('/searches')
+
+        .get(function(req, res) {
+            User.findOne({name: req.decoded.name}, function (err, user) {
+                res.json(user.searches);
+            })
+        })
+
+    apiRouter.route('/searches/:query')
+
+        .get(function(req, res) {
+            if (req.params.query === 'mine'){
+                User.findOne({name: req.decoded.name}, function (err, user) {
+                    res.json(user.searches);
+                });
+            } else {
+                Search.find({'query' : req.params.query}, function (err, searches) {
+                    res.json(searches);
+                });
+            }
+        })
 
     // ================= /test =================
    apiRouter.route('/test')

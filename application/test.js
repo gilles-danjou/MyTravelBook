@@ -30,7 +30,6 @@ mongoose.connect('mongodb://localhost:27017/mytravelbook');                     
 Parent.findOne({'name':'hyacinthe'}).populate('children').exec(function(err,data){
         console.log(data.children);
         process.exit();
-
 });
 
 
