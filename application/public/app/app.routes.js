@@ -19,8 +19,10 @@ angular.module('app.routes', ['ngRoute'])
 		// page to edit a user
 		.when('/users/:user_id', {templateUrl: 'app/views/pages/users/single.html', controller: 'userEditController', controllerAs: 'user'})
 
-        // search page
-        .when('/searches', {templateUrl : 'app/views/pages/search.html', controller  : 'searchController', controllerAs: 'search'});
+        // search pages
+        .when('/searches',             {templateUrl: 'app/views/pages/search.html',            controller: 'searchController',         controllerAs: 'search'})
+        .when('/searches/create',      {templateUrl: 'app/views/pages/searches/single.html',   controller: 'searchCreateController',   controllerAs: 'search'})
+        .when('/searches/:search_id',    {templateUrl: 'app/views/pages/searches/single.html',   controller: 'searchEditController',     controllerAs: 'search'});
 
 
         $locationProvider.html5Mode(true);

@@ -24,11 +24,17 @@
             <thead>
             <tr>
                 <th>Query</th>
+                <th class="col-sm-2"></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="oneSearch in search.mySearches">
-                <td>{{ oneSearch.query }}</td>
+                <td>{{ oneSearch.query }}<br/>{{ oneSearch._id }}</td>
+                <td class="col-sm-5">
+                    <a ng-href="/searches/{{ oneSearch._id }}" class="btn btn-danger">Edit</a>
+                    <a href="#" ng-click="search.deleteSearch(oneSearch._id)" class="btn btn-primary">Delete</a>
+                    <span ng-if="search.deleteteProcessing" class="spinner"><span class="glyphicon glyphicon-repeat"></span></span>
+                </td>
             </tr>
             </tbody>
         </table>

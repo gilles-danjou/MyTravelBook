@@ -55,10 +55,10 @@ module.exports = function(app, express) {
 // ================= /users =================
 	apiRouter.route('/users')
 		.post(function(req, res) {                                                                              		// create a user (accessed at POST http://localhost:8080/users)
-            var user = new User();		                                                                                 // create a new instance of the User model
-			user.name = req.body.name;                                                                                  // set the users name (comes from the request)
-			user.username = req.body.username;                                                                          // set the users username (comes from the request)
-			user.password = req.body.password;                                                                          // set the users password (comes from the request)
+            var user = new User(req.body);		                                                                        // create a new instance of the User model
+	                                                                                                                    // set the users name (comes from the request)
+			//user.username = req.body.username;                                                                        // set the users username (comes from the request)
+			//user.password = req.body.password;                                                                        // set the users password (comes from the request)
 
 			user.save(function(err) {
 				if (err) {
@@ -144,28 +144,39 @@ module.exports = function(app, express) {
            });
         });
 
-
-    apiRouter.route('/searches')
-
-        .get(function(req, res) {
-            User.findOne({name: req.decoded.name}, function (err, user) {
-                res.json(user.searches);
-            })
-        });
-
-    apiRouter.route('/searches/:query')
+   apiRouter.route('/searches/:query')
 
         .get(function(req, res) {
-            //if (req.params.query === 'mine'){
-            //    User.findOne({name: req.decoded.name}, function (err, user) {
-            //        res.json(user.searches);
-            //    });
-            //} else {
-            //    Search.find({'query' : req.params.query}, function (err, searches) {
-            //        res.json(searches);
-            //    });
-            //}
+            if (req.params.query === 'mine'){
+                User
+                    .findOne({name: req.decoded.name})
+                    .populate('searches', 'query')
+                    .exec(function (err, user) { res.json(user.searches); });
+            } else {
+                Search.findById(req.params.query, function (err, search) {
+                    if (err) res.send(err);
+                    res.json(search);
+                });
+            }
         })
+
+        .put(function(req, res) {
+            Search.findById(req.params.query, function(err, search) {
+                if (err) res.send(err);
+                if (req.body.query) search.query = req.body.query;
+                search.save(function(err) {
+                    if (err) res.send(err);
+                    res.json({ message: 'Search updated!' });
+                });
+            });
+        })
+
+       .delete(function(req, res) {
+           Search.remove({ _id: req.params.query }, function(err, search) {
+               if (err) res.send(err);
+               res.json({ message: 'Successfully deleted' });
+           });
+       });
 
     // ================= /test =================
    apiRouter.route('/test')
