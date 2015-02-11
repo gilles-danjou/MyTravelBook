@@ -9,6 +9,8 @@ var mongoose   = require('mongoose');
 var config 	   = require('./config');
 var path 	   = require('path');
 
+require('require-dir');
+
 // ================= APP CONFIGURATION ==================
 app.use(bodyParser.urlencoded({ extended: true }));                                                                     // use body parser so we can grab information from POST requests
 app.use(bodyParser.json());
@@ -24,6 +26,8 @@ app.use(express.static(__dirname + '/public'));                                 
 
 // ================= ROUTES FOR OUR API =================
 
+require('./routes')(app, express);
+
 var apiRoutes = require('./app/routes/api')(app, express);
 app.use('/api', apiRoutes);
 app.get('*', function(req, res) { res.sendFile(path.join(__dirname + '/public/app/views/index.html')); });              // MAIN CATCHALL ROUTE - SEND USERS TO FRONTEND - has to be registered after API ROUTES
@@ -31,3 +35,4 @@ app.get('*', function(req, res) { res.sendFile(path.join(__dirname + '/public/ap
 // ================= START THE SERVER =================
 app.listen(config.port);
 console.log('Magic happens on port ' + config.port);
+
