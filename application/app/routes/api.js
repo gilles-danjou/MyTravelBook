@@ -1,5 +1,5 @@
 var bodyParser = require('body-parser'); 	// get body-parser
-var User       = require('../models/user');
+var User       = require('../../api/user/user.model');
 //var Search     = require('../models/search');
 var Parent     = require('../models/test').parent;
 var jwt        = require('jsonwebtoken');
@@ -48,7 +48,7 @@ module.exports = function(app, express) {
 	  }
 	});
 
-	apiRouter.get('/', function(req, res) {	                                                                            // test route to make sure everything is working accessed at GET http://localhost:8080/api
+	apiRouter.get('/', function(req,     res) {	                                                                            // test route to make sure everything is working accessed at GET http://localhost:8080/api
         res.json({ message: 'hooray! welcome to our api!' });
 	});
 

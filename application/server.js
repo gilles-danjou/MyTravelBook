@@ -26,7 +26,9 @@ app.use(express.static(__dirname + '/public'));                                 
 
 // ================= ROUTES FOR OUR API =================
 
-require('./routes')(app, express);
+var api1Routes = require('./routes')(app, express);
+app.use('/api1', api1Routes);
+
 
 var apiRoutes = require('./app/routes/api')(app, express);
 app.use('/api', apiRoutes);

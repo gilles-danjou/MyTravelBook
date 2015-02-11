@@ -10,7 +10,7 @@
 'use strict';
 
 var Search = require('./search.model');
-var User       = require('../../app/models/user');
+var User   = require('..//user/user.model');
 
 // ================= /searches =================
 exports.index = function(req, res) {
