@@ -3,7 +3,7 @@ var express = require('express');
 var jwt        = require('jsonwebtoken');
 var config     = require('../../config');
 var controller = require('./search.controller');
-var User       = require('./search.model');
+var User       = require('../../app/models/user');
 
 var router = express.Router();
 
@@ -13,12 +13,12 @@ router.use(function(req, res, next) {                                           
 
     if (token) {                                                                                                      // decode token
         jwt.verify(token, config.secret, function(err, decoded) {
-
             if (err) { res.status(403).send({ success: false,  message: 'Failed to authenticate token1.' });
             } else {
                 req.decoded = decoded;
                 User.findOne({ name: decoded.name }, function(err, user) {
                     req.user = user;
+                    debugger
                 });	                                                                                       // if everything is good, save to request for use in other routes
                 next();                                                                                                     // make sure we go to the next routes and don't stop here
             }
