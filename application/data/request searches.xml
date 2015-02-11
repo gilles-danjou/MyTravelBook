@@ -1,0 +1,29 @@
+<RestClientRequest>
+  <option name="biscuits">
+    <list />
+  </option>
+  <option name="httpMethod" value="GET" />
+  <option name="urlBase" value="http://localhost:8080" />
+  <option name="urlPath" value="/api/searches" />
+  <option name="headers">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="Accept" />
+        <option name="value" value="*/*" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="x-access-token" />
+        <option name="value" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoic3V6aWUiLCJ1c2VybmFtZSI6InN1emllIiwiaWF0IjoxNDIzNjQ3MTMwLCJleHAiOjE0MjM3MzM1MzB9.1GfZC7MBzRnK2cYqxwbwg8mW7xTWQyuaNYMta-6YnDg" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parameters">
+    <list />
+  </option>
+  <option name="parametersEnabled" value="true" />
+  <option name="haveTextToSend" value="false" />
+  <option name="haveFileToSend" value="false" />
+  <option name="isFileUpload" value="false" />
+  <option name="textToSend" value="" />
+  <option name="filesToSend" value="" />
+</RestClientRequest>

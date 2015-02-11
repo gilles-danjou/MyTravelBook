@@ -37,7 +37,7 @@ module.exports = function(app, express) {
             if (err) { res.status(403).send({ success: false,  message: 'Failed to authenticate token.' });
 	      } else {
 	        req.decoded = decoded;
-            User.findOne({ _id: decoded.iss }, function(err, user) {
+            User.findOne({ name: decoded.name }, function(err, user) {
                 req.user = user;
             });	                                                                                       // if everything is good, save to request for use in other routes
 	        next();                                                                                                     // make sure we go to the next routes and don't stop here
@@ -131,26 +131,17 @@ module.exports = function(app, express) {
         .post(function(req, res) {
            Search.findOne(req.body, function (err, search) {
                if (!search) {
-                   var newSsearch = new Search({ query : req.body.query}).save();
-                   req.user.searches.push(newSsearch);
+                   var newSearch = new Search({ query : req.body.query});
+                   newSearch.save();
+                   req.user.searches.push(newSearch);
+                   newSearch.users.push(req.user);
                    res.json({ 'message' : 'Search CREATED: ' + req.body.query });
                } else {
-                    User.findOne(req.user, function (err, user) {
-                        search.users.push(user);
-                        res.json({'message': 'Search added to you !'});
-                    });
+                    search.users.push(req.user);
+                    req.user.searches.push(search);
+                    res.json({'message': 'Search added to you !'});
                }
-       });
-
-            //search.save(function(err) {
-            //    if (err) {
-            //        if (err.code == 11000) return res.json({ success: false, message: 'A search with that query already exists. '});
-            //        else return res.send(err);
-            //    }
-            //    res.json({ message: 'Search created!' });
-            //});
-
-
+           });
         });
 
 
@@ -160,7 +151,7 @@ module.exports = function(app, express) {
             User.findOne({name: req.decoded.name}, function (err, user) {
                 res.json(user.searches);
             })
-        })
+        });
 
     apiRouter.route('/searches/:query')
 
