@@ -36,7 +36,10 @@ module.exports = function(app, express) {
 	    jwt.verify(token, superSecret, function(err, decoded) {                                                         // verifies secret and checks exp
             if (err) { res.status(403).send({ success: false,  message: 'Failed to authenticate token.' });
 	      } else {
-	        req.decoded = decoded;                                                                                      // if everything is good, save to request for use in other routes
+	        req.decoded = decoded;
+            User.findOne({ _id: decoded.iss }, function(err, user) {
+                req.user = user;
+            });	                                                                                       // if everything is good, save to request for use in other routes
 	        next();                                                                                                     // make sure we go to the next routes and don't stop here
 	      }
 	    });
@@ -126,27 +129,17 @@ module.exports = function(app, express) {
        })
 
         .post(function(req, res) {
-            var search = new Search();
-            search.query = req.body.query;
-
-           Search.findOne({'query': req.body.query}, function (err, r) {
-               if (err) { console.log(err.name); return; }
-               debugger
+           Search.findOne(req.body, function (err, search) {
                if (!search) {
-
-                   search.save(function(err) {
-                       if (err) {
-                           if (err.code == 11000) return res.json({ success: false, message: 'A search with that query already exists. '});
-                           else return res.send(err);
-                       }
-                       res.json({ message: 'Search created!' });
-                   });
-
+                   var newSsearch = new Search({ query : req.body.query}).save();
+                   req.user.searches.push(newSsearch);
+                   res.json({ 'message' : 'Search CREATED: ' + req.body.query });
                } else {
-                    console.log('Search found');
-                   res.json({ message: 'Search found!' });
+                    User.findOne(req.user, function (err, user) {
+                        search.users.push(user);
+                        res.json({'message': 'Search added to you !'});
+                    });
                }
-
        });
 
             //search.save(function(err) {

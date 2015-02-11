@@ -1,4 +1,6 @@
-var mongoose     = require('mongoose');
+var mongoose = require("mongoose"),
+    Schema = mongoose.Schema,
+    relationship = require("mongoose-relationship");
 var Schema       = mongoose.Schema;
 var bcrypt 		 = require('bcrypt-nodejs');
 
