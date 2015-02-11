@@ -10,31 +10,33 @@ var User       = require('./api/user/user.model');
 
 module.exports = function(app, express) {
 
-    var api1Router = express.Router();
+    var apiRouter = express.Router();
 
-    api1Router.use(function(req, res, next) {                                                                        	// route middleware to verify a token
-        console.log('Somebody just came to our app!');                                                                  // do logging
-        var token = req.body.token || req.param('token') || req.headers['x-access-token'];                                // check header or url parameters or post parameters for token
+    apiRouter.use(function(req, res, next) {
+        console.log('Somebody just came to our app!');
+        var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
-        if (token) {                                                                                                      // decode token
+        if (token) {
             jwt.verify(token, config.secret, function(err, decoded) {
                 if (err) { res.status(403).send({ success: false,  message: 'Failed to authenticate token1.' });
                 } else {
                     req.decoded = decoded;
                     User.findOne({ name: decoded.name }, function(err, user) {
                         req.user = user;
-                    });	                                                                                       // if everything is good, save to request for use in other routes
-                    next();                                                                                                     // make sure we go to the next routes and don't stop here
+                    });
+                    next();
                 }
             });
         } else {
-            res.status(403).send({ success: false, message: 'No token provided.' });                                        // if there is no token return an HTTP response of 403 (access forbidden) and an error message
+            res.status(403).send({ success: false, message: 'No token provided.' });
         }
     });
 
-    api1Router.use('/searches'      , require('./api/search'));
-    api1Router.use('/users'         , require('./api/user'));
-
-    return api1Router;
+    apiRouter.use('/searches'      , require('./api/search'));
+    apiRouter.use('/users'         , require('./api/user'));
+    apiRouter.get('/', function(req,     res) {
+        res.json({ message: 'hooray! welcome to our api!' });
+    });
+    return apiRouter;
 
 };
