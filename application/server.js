@@ -8,6 +8,8 @@ var morgan     = require('morgan'); 		// used to see requests
 var mongoose   = require('mongoose');
 var config 	   = require('./config');
 var path 	   = require('path');
+var jwt        = require('jsonwebtoken');
+var User       = require('./api/user/user.model');
 
 require('require-dir');
 
@@ -26,13 +28,31 @@ app.use(express.static(__dirname + '/public'));                                 
 
 // ================= ROUTES FOR OUR API =================
 
+app.use('/authenticate', function(req, res, next) {
+    User.findOne({ username: req.body.username }).select('name username password').exec(function(err, user) {         // find the user
+        if (err) throw err;                                                                                             // no user with that username was found
+        if (!user) { res.json({ success: false,  message: 'Authentication failed. User not found.' });
+        } else if (user) {
+            var validPassword = user.comparePassword(req.body.password);                                                  // check if password matches
+            if (!validPassword) {
+                res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+            } else {
+                var token = jwt.sign({ name: user.name, username: user.username }, config.secret, { expiresInMinutes: 1440 });// if user is found and password is right create a token - // expires in 24 hours
+                res.json({ success: true, message: 'Enjoy your token!', token: token });
+            }
+        }
+    });
+});
+
 var api1Routes = require('./routes')(app, express);
 app.use('/api1', api1Routes);
 
 
 var apiRoutes = require('./app/routes/api')(app, express);
 app.use('/api', apiRoutes);
-app.get('*', function(req, res) { res.sendFile(path.join(__dirname + '/public/app/views/index.html')); });              // MAIN CATCHALL ROUTE - SEND USERS TO FRONTEND - has to be registered after API ROUTES
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+});
 
 // ================= START THE SERVER =================
 app.listen(config.port);

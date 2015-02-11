@@ -32,9 +32,8 @@ module.exports = function(app, express) {
         }
     });
 
-
-    //api1Routes.use('/things', require('./api/thing'));
-    api1Router.use('/searches', require('./api/search'));
+    api1Router.use('/searches'      , require('./api/search'));
+    api1Router.use('/users'         , require('./api/user'));
 
     return api1Router;
 

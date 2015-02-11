@@ -11,7 +11,7 @@ angular.module('authService', [])
 	var authFactory = {};
 
 	authFactory.login = function(username, password) {	// log a user in
-		return $http.post('/api/authenticate', { username: username,  password: password}).success(function(data) {     // return the promise object and its data
+		return $http.post('/authenticate', { username: username,  password: password}).success(function(data) {     // return the promise object and its data
             AuthToken.setToken(data.token);
        		return data;
 		});
