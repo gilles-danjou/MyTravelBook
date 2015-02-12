@@ -26,8 +26,6 @@ app.use(morgan('dev'));                                                         
 mongoose.connect(config.database);                                                                                      // connect to our database (hosted on modulus.io)
 app.use(express.static(__dirname + '/public'));                                                                         // set static files location used for requests that our frontend will make
 
-// ================= ROUTES FOR OUR API =================
-
 app.use('/authenticate', function(req, res, next) {
     User.findOne({ username: req.body.username }).select('name username password').exec(function(err, user) {         // find the user
         if (err) throw err;                                                                                             // no user with that username was found
@@ -47,9 +45,9 @@ app.use('/authenticate', function(req, res, next) {
 var apiRoutes = require('./routes')(app, express);
 app.use('/api', apiRoutes);
 
-
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/index.html'));
+//    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
 // ================= START THE SERVER =================

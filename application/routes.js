@@ -35,9 +35,8 @@ module.exports = function(app, express) {
     apiRouter.use('/snipet'        , require('./api/snipet'));
     apiRouter.use('/searches'      , require('./api/search'));
     apiRouter.use('/users'         , require('./api/user'));
-    apiRouter.get('/', function(req,     res) {
-        res.json({ message: 'hooray! welcome to our api!' });
-    });
+    apiRouter.get('/', function(req, res) { res.json({ message: 'hooray! welcome to our api!' }); });
+
     return apiRouter;
 
 };
