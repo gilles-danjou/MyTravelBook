@@ -49,7 +49,9 @@ app.use('/api', apiRoutes);
 
 
 app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+//    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+
 });
 
 // ================= START THE SERVER =================
