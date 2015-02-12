@@ -4,115 +4,75 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Fixed Navbar | Nifty - Responsive admin template.</title>
-
-
-	<!--STYLESHEET-->
-	<!--=================================================-->
-
-	<!--Open Sans Font [ OPTIONAL ] -->
+	<title>My Travel Notebook</title>
+    <!-- FOR ANGULAR ROUTING -->
+    <base href="/">
  	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
-
-
-	<!--Bootstrap Stylesheet [ REQUIRED ]-->
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-
-
-	<!--Nifty Stylesheet [ REQUIRED ]-->
 	<link href="css/nifty.min.css" rel="stylesheet">
-
-	
-	<!--Font Awesome [ OPTIONAL ]-->
 	<link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-
-	<!--Switchery [ OPTIONAL ]-->
 	<link href="plugins/switchery/switchery.min.css" rel="stylesheet">
-
-
-	<!--Bootstrap Select [ OPTIONAL ]-->
 	<link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+	<link href="plugins/pace/pace.min.css" rel="stylesheet"> 	<!--Page Load Progress Bar [ OPTIONAL ]-->
 
-
-
-
-	<!--SCRIPT-->
-	<!--=================================================-->
-
-	<!--Page Load Progress Bar [ OPTIONAL ]-->
-	<link href="plugins/pace/pace.min.css" rel="stylesheet">
+	<link href="css/app.css" rel="stylesheet">
+    
 	<script src="plugins/pace/pace.min.js"></script>
 
-
-	
-	<!--
-
-	REQUIRED
-	You must include this in your project.
-
-	RECOMMENDED
-	This category must be included but you may modify which plugins or components which should be included in your project.
-
-	OPTIONAL
-	Optional plugins. You may choose whether to include it in your project or not.
-
-	DEMONSTRATION
-	This is to be removed, used for demonstration purposes only. This category must not be included in your project.
-
-	SAMPLE
-	Some script samples which explain how to initialize plugins or components. This category should not be included in your project.
+    <link href="plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 
 
-	Detailed information and more samples can be found in the document.
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
 
-	-->
-		
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js"></script>
 
+    <!-- controllers -->
+    <script src="app/controllers/mainCtrl.js"></script>
+    <script src="app/controllers/userCtrl.js"></script>
+    <script src="app/controllers/searchCtrl.js"></script>
+
+
+    <!-- services -->
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/userService.js"></script>
+    <script src="app/services/searchService.js"></script>
+
+    <!-- main Angular app files -->
+    <script src="app/app.routes.js"></script>
+    <script src="app/app.js"></script>
 </head>
-
-<!--TIPS-->
-<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
-
-<body>
+<body ng-app="userApp" ng-controller="mainController as main">
 	<div id="container" class="effect mainnav-lg navbar-fixed">
 		
 		<!--NAVBAR-->
-		<!--===================================================-->
 		<header id="navbar">
 			<div id="navbar-container" class="boxed">
-
 				<!--Brand logo & name-->
-				<!--================================-->
 				<div class="navbar-header">
-					<a href="index.html" class="navbar-brand">
+					<a href="/" class="navbar-brand">
 						<img src="img/logo.png" alt="Nifty Logo" class="brand-icon">
 						<div class="brand-title">
-							<span class="brand-text">Nifty</span>
+							<span class="brand-text">My Travel Notebook</span>
 						</div>
 					</a>
 				</div>
-				<!--================================-->
 				<!--End brand logo & name-->
 
-
 				<!--Navbar Dropdown-->
-				<!--================================-->
 				<div class="navbar-content clearfix">
 					<ul class="nav navbar-top-links pull-left">
 
 						<!--Navigation toogle button-->
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<li class="tgl-menu-btn">
 							<a class="mainnav-toggle" href="#">
 								<i class="fa fa-navicon fa-lg"></i>
 							</a>
 						</li>
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<!--End Navigation toogle button-->
-
-
 						<!--Messages Dropdown-->
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<li class="dropdown">
 							<a href="#" data-toggle="dropdown" class="dropdown-toggle">
 								<i class="fa fa-envelope fa-lg"></i>
@@ -217,14 +177,12 @@
 								</div>
 							</div>
 						</li>
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<!--End message dropdown-->
 
 
 
 
 						<!--Notification dropdown-->
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<li class="dropdown">
 							<a href="#" data-toggle="dropdown" class="dropdown-toggle">
 								<i class="fa fa-bell fa-lg"></i>
@@ -358,13 +316,11 @@
 								</div>
 							</div>
 						</li>
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<!--End notifications dropdown-->
 
 
 
 						<!--Mega dropdown-->
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<li class="mega-dropdown">
 							<a href="#" class="mega-dropdown-toggle">
 								<i class="fa fa-th-large fa-lg"></i>
@@ -434,8 +390,8 @@
 											<li>
 												<form role="form" class="form">
 													<div class="form-group">
-														<label class="dropdown-header" for="demo-megamenu-input">Newsletter</label>
-														<input id="demo-megamenu-input" type="email" placeholder="Enter email" class="form-control">
+														<label class="dropdown-header" for="megamenu-input">Newsletter</label>
+														<input id="megamenu-input" type="email" placeholder="Enter email" class="form-control">
 													</div>
 													<button class="btn btn-primary btn-block" type="submit">Submit</button>
 												</form>
@@ -445,16 +401,20 @@
 								</div>
 							</div>
 						</li>
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<!--End mega dropdown-->
 
 					</ul>
 					<ul class="nav navbar-top-links pull-right">
 
-						<!--Language selector-->
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li>
+                            <a href="#" class="aside-toggle">
+                                <i class="fa fa-list-alt fa-fw fa-lg"></i> Right menu
+                            </a>
+                        </li>
+
+                        <!--Language selector-->
 						<li class="dropdown">
-							<a id="demo-lang-switch" class="lang-selector dropdown-toggle" href="#" data-toggle="dropdown">
+							<a id="lang-switch" class="lang-selector dropdown-toggle" href="#" data-toggle="dropdown">
 								<span class="lang-selected">
 									<img class="lang-flag" src="img/flags/united-kingdom.png" alt="English">
 									<span class="lang-id">EN</span>
@@ -506,13 +466,11 @@
 								</li>
 							</ul>
 						</li>
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<!--End language selector-->
 
 
 
 						<!--User dropdown-->
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<li id="dropdown-user" class="dropdown">
 							<a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
 								<span class="pull-right">
@@ -574,12 +532,12 @@
 								</div>
 							</div>
 						</li>
-						<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 						<!--End user dropdown-->
-
-					</ul>
+                  <li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
+                    <li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.username }}!</li>
+                    <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
+                    </ul>
 				</div>
-				<!--================================-->
 				<!--End Navbar Dropdown-->
 
 			</div>
@@ -592,11 +550,10 @@
 			<!--CONTENT CONTAINER-->
 			<!--===================================================-->
 			<div id="content-container">
-				
-				<!--Page Title-->
-				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+                <!--Page Title-->
 				<div id="page-title">
-					<h1 class="page-header text-overflow">Fixed Navbar</h1>
+					<h1 class="page-header text-overflow">{{main.pageTitle}}</h1>
 
 					<!--Searchbox-->
 					<div class="searchbox">
@@ -608,18 +565,15 @@
 						</div>
 					</div>
 				</div>
-				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 				<!--End page title-->
 
 
 				<!--Breadcrumb-->
-				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 				<ol class="breadcrumb">
 					<li><a href="#">Home</a></li>
 					<li><a href="#">Library</a></li>
 					<li class="active">Data</li>
 				</ol>
-				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 				<!--End breadcrumb-->
 
 
@@ -627,14 +581,16 @@
 
 				<!--Page content-->
 				<!--===================================================-->
-				<div id="page-content">
+				<main id="page-content">
+
+
+
+                        <!-- ANGULAR VIEWS -->
+                        <div ng-view></div>
+
 					
 					
-					<h3 class="text-thin">Your content...</h3>
-					
-					
-					
-				</div>
+				</main>
 				<!--===================================================-->
 				<!--End page content-->
 
@@ -651,32 +607,29 @@
 				<div id="mainnav">
 
 					<!--Shortcut buttons-->
-					<!--================================-->
 					<div id="mainnav-shortcut">
 						<ul class="list-unstyled">
 							<li class="col-xs-4" data-content="Additional Sidebar">
-								<a id="demo-toggle-aside" class="shortcut-grid" href="#">
+								<a id="toggle-aside" class="shortcut-grid" href="#">
 									<i class="fa fa-magic"></i>
 								</a>
 							</li>
 							<li class="col-xs-4" data-content="Notification">
-								<a id="demo-alert" class="shortcut-grid" href="#">
+								<a id="alert" class="shortcut-grid" href="#">
 									<i class="fa fa-bullhorn"></i>
 								</a>
 							</li>
 							<li class="col-xs-4" data-content="Page Alerts">
-								<a id="demo-page-alert" class="shortcut-grid" href="#">
+								<a id="page-alert" class="shortcut-grid" href="#">
 									<i class="fa fa-bell"></i>
 								</a>
 							</li>
 						</ul>
 					</div>
-					<!--================================-->
 					<!--End shortcut buttons-->
 
 
 					<!--Menu-->
-					<!--================================-->
 					<div id="mainnav-menu-wrap">
 						<div class="nano">
 							<div class="nano-content">
@@ -687,10 +640,10 @@
 						
 									<!--Menu list item-->
 									<li>
-										<a href="index.html">
-											<i class="fa fa-dashboard"></i>
+										<a href="/">
+											<i class="fa fa-home"></i>
 											<span class="menu-title">
-												<strong>Dashboard</strong>
+												<strong>Home</strong>
 												<span class="label label-success pull-right">Top</span>
 											</span>
 										</a>
@@ -708,8 +661,8 @@
 						
 										<!--Submenu-->
 										<ul class="collapse in">
-											<li><a href="layouts-collapsed-navigation.html">Collapsed Navigation</a></li>
-											<li><a href="layouts-offcanvas-navigation.html">Off-Canvas Navigation</a></li>
+                                            <li><a href="/users"><i class="fa fa-user"></i>Users</a></li>
+                                            <li><a href="/searches"><i class="fa fa-search"></i>Seach</a></li>
 											<li><a href="layouts-offcanvas-slide-in-navigation.html">Slide-in Navigation</a></li>
 											<li><a href="layouts-offcanvas-revealing-navigation.html">Revealing Navigation</a></li>
 											<li class="list-divider"></li>
@@ -717,7 +670,7 @@
 											<li><a href="layouts-aside-left-side.html">Aside on the left side</a></li>
 											<li><a href="layouts-aside-bright-theme.html">Bright aside theme</a></li>
 											<li class="list-divider"></li>
-											<li class="active-link"><a href="layouts-fixed-navbar.html">Fixed Navbar</a></li>
+											<li class="active-link"><a href="layouts-fixed-navbar.html" id="pageTitle">{{main.pageTitle}}</a></li>
 											<li><a href="layouts-fixed-footer.html">Fixed Footer</a></li>
 											
 										</ul>
@@ -920,18 +873,17 @@
 
 
 								<!--Widget-->
-								<!--================================-->
 								<div class="mainnav-widget">
 
 									<!-- Show the button on collapsed navigation -->
 									<div class="show-small">
-										<a href="#" data-toggle="menu-widget" data-target="#demo-wg-server">
+										<a href="#" data-toggle="menu-widget" data-target="#wg-server">
 											<i class="fa fa-desktop"></i>
 										</a>
 									</div>
 
 									<!-- Hide the content on collapsed navigation -->
-									<div id="demo-wg-server" class="hide-small mainnav-widget-content">
+									<div id="wg-server" class="hide-small mainnav-widget-content">
 										<ul class="list-group">
 											<li class="list-header pad-no pad-ver">Server Status</li>
 											<li class="mar-btm">
@@ -956,13 +908,11 @@
 										</ul>
 									</div>
 								</div>
-								<!--================================-->
 								<!--End widget-->
 
 							</div>
 						</div>
 					</div>
-					<!--================================-->
 					<!--End menu-->
 
 				</div>
@@ -978,37 +928,33 @@
 						<div class="nano-content">
 							
 							<!--Nav tabs-->
-							<!--================================-->
 							<ul class="nav nav-tabs nav-justified">
 								<li class="active">
-									<a href="#demo-asd-tab-1" data-toggle="tab">
+									<a href="#asd-tab-1" data-toggle="tab">
 										<i class="fa fa-comments"></i>
 										<span class="badge badge-purple">7</span>
 									</a>
 								</li>
 								<li>
-									<a href="#demo-asd-tab-2" data-toggle="tab">
+									<a href="#asd-tab-2" data-toggle="tab">
 										<i class="fa fa-info-circle"></i>
 									</a>
 								</li>
 								<li>
-									<a href="#demo-asd-tab-3" data-toggle="tab">
+									<a href="#asd-tab-3" data-toggle="tab">
 										<i class="fa fa-wrench"></i>
 									</a>
 								</li>
 							</ul>
-							<!--================================-->
 							<!--End nav tabs-->
 
 
 
 							<!-- Tabs Content -->
-							<!--================================-->
 							<div class="tab-content">
 
 								<!--First tab (Contact list)-->
-								<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-								<div class="tab-pane fade in active" id="demo-asd-tab-1">
+								<div class="tab-pane fade in active" id="asd-tab-1">
 									<h4 class="pad-hor text-thin">
 										<span class="pull-right badge badge-warning">3</span> Family
 									</h4>
@@ -1116,13 +1062,11 @@
 									</div>
 
 								</div>
-								<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 								<!--End first tab (Contact list)-->
 
 
 								<!--Second tab (Custom layout)-->
-								<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-								<div class="tab-pane fade" id="demo-asd-tab-2">
+								<div class="tab-pane fade" id="asd-tab-2">
 
 									<!--Monthly billing-->
 									<div class="pad-all">
@@ -1167,33 +1111,29 @@
 									</div>
 								</div>
 								<!--End second tab (Custom layout)-->
-								<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-
 								<!--Third tab (Settings)-->
-								<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-								<div class="tab-pane fade" id="demo-asd-tab-3">
+								<div class="tab-pane fade" id="asd-tab-3">
 									<ul class="list-group bg-trans">
 										<li class="list-header">
 											<h4 class="text-thin">Account Settings</h4>
 										</li>
 										<li class="list-group-item">
 											<div class="pull-right">
-												<input class="demo-switch" type="checkbox" checked>
+												<input class="switch" type="checkbox" checked>
 											</div>
 											<p>Show my personal status</p>
 											<small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</small>
 										</li>
 										<li class="list-group-item">
 											<div class="pull-right">
-												<input class="demo-switch" type="checkbox" checked>
+												<input class="switch" type="checkbox" checked>
 											</div>
 											<p>Show offline contact</p>
 											<small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</small>
 										</li>
 										<li class="list-group-item">
 											<div class="pull-right">
-												<input class="demo-switch" type="checkbox">
+												<input class="switch" type="checkbox">
 											</div>
 											<p>Invisible mode </p>
 											<small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</small>
@@ -1207,19 +1147,19 @@
 										<li class="list-header"><h4 class="text-thin">Public Settings</h4></li>
 										<li class="list-group-item">
 											<div class="pull-right">
-												<input class="demo-switch" type="checkbox" checked>
+												<input class="switch" type="checkbox" checked>
 											</div>
 											Online status
 										</li>
 										<li class="list-group-item">
 											<div class="pull-right">
-												<input class="demo-switch" type="checkbox" checked>
+												<input class="switch" type="checkbox" checked>
 											</div>
 											Show offline contact
 										</li>
 										<li class="list-group-item">
 											<div class="pull-right">
-												<input class="demo-switch" type="checkbox">
+												<input class="switch" type="checkbox">
 											</div>
 											Show my device icon
 										</li>
@@ -1246,7 +1186,6 @@
 									</div>
 
 								</div>
-								<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 								<!--Third tab (Settings)-->
 
 							</div>
@@ -1266,7 +1205,6 @@
 		<footer id="footer">
 
 			<!-- Visible when footer positions are fixed -->
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<div class="show-fixed pull-right">
 				<ul class="footer-list list-inline">
 					<li>
@@ -1291,7 +1229,6 @@
 
 
 			<!-- Visible when footer positions are static -->
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 			<div class="hide-fixed pull-right pad-rgt">Currently v2.2</div>
 
 
@@ -1320,64 +1257,18 @@
 	<!--===================================================-->
 	<!-- END OF CONTAINER -->
 
-
-	
-	
-	
-	<!--JAVASCRIPT-->
-	<!--=================================================-->
-
-	<!--jQuery [ REQUIRED ]-->
 	<script src="js/jquery-2.1.1.min.js"></script>
-
-
-	<!--BootstrapJS [ RECOMMENDED ]-->
-	<script src="js/bootstrap.min.js"></script>
-
-
-	<!--Fast Click [ OPTIONAL ]-->
-	<script src="plugins/fast-click/fastclick.min.js"></script>
-
-	
-	<!--Nifty Admin [ RECOMMENDED ]-->
-	<script src="js/nifty.min.js"></script>
-
-
-	<!--Switchery [ OPTIONAL ]-->
-	<script src="plugins/switchery/switchery.min.js"></script>
-
-
-	<!--Bootstrap Select [ OPTIONAL ]-->
-	<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
-
-
-	<!--Demo script [ DEMONSTRATION ]-->
-	<script src="js/demo/nifty-demo.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="plugins/fast-click/fastclick.min.js"></script>
+    <script src="js/nifty.min.js"></script>
+    <script src="plugins/switchery/switchery.min.js"></script>
+    <script src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="js/demo/nifty-demo.min.js"></script>
 	<script src="js/demo/layouts.js"></script>
-
-	
-	<!--
-
-	REQUIRED
-	You must include this in your project.
-
-	RECOMMENDED
-	This category must be included but you may modify which plugins or components which should be included in your project.
-
-	OPTIONAL
-	Optional plugins. You may choose whether to include it in your project or not.
-
-	DEMONSTRATION
-	This is to be removed, used for demonstration purposes only. This category must not be included in your project.
-
-	SAMPLE
-	Some script samples which explain how to initialize plugins or components. This category should not be included in your project.
-
-
-	Detailed information and more samples can be found in the document.
-
-	-->
-		
+    <script src="plugins/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="plugins/datatables/media/js/dataTables.bootstrap.js"></script>
+    <script src="plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+    <script src="js/tools.js"></script>
 
 </body>
 </html>

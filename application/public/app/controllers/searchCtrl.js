@@ -4,6 +4,7 @@ angular.module('searchCtrl', ['searchService'])
 .controller('searchController', ['$scope', 'Search', function($scope, Search) {
     var vm = this;
     vm.type = 'create';
+    updatePageTitle('Find a destination');
 
     Search.all().success(function(data) { vm.processing = false; vm.searches = data; });
 
