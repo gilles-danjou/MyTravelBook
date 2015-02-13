@@ -32,6 +32,7 @@ module.exports = function(app, express) {
         }
     });
 
+    apiRouter.use('/test'        , require('./api/test'));
     apiRouter.use('/snipet'        , require('./api/snipet'));
     apiRouter.use('/searches'      , require('./api/search'));
     apiRouter.use('/users'         , require('./api/user'));

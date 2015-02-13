@@ -47,7 +47,8 @@ app.use('/authenticate', function(req, res, next) {
 var apiRoutes = require('./routes')(app, express);
 app.use('/api', apiRoutes);
 
-app.use('/api/test', require('./api/test'));
+//var testRoutes = require('./ssjs/scraper')
+//app.get('/api/test', testRoutes);
 
 app.get('*', function(req, res) {
 //    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
