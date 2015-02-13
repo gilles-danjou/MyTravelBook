@@ -1,0 +1,19 @@
+<div class="panel" ng-controller="testController as test" >
+    <div class="panel-heading">
+        <h3 class="panel-title">Your note</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a id="demo-dt-addrow-btn" onclick="$('#note').html($('#note').text());">
+                <button class="btn btn-primary btn-labeled fa fa-plus">Beautify!</button>
+            </a>
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="jumbotron text-center" ng-show="test.processing">
+            <span class="fa fa-refresh spinner"></span>
+            <p>Loading your note...</p>
+        </div>
+        <div id="note" ng-show="test.result" width="100%">
+{{test.result}}
+        </div>
+    </div>
+</div>

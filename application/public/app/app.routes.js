@@ -6,8 +6,8 @@ angular.module('app.routes', ['ngRoute'])
 
 		// route for the home page
 		.when('/', { templateUrl : 'app/views/pages/home.html' })
-		
-		// login page
+
+        // login page
 		.when('/login', {templateUrl : 'app/views/pages/login.html', controller  : 'mainController', controllerAs: 'login'})
 		
 		// show all users
@@ -22,7 +22,8 @@ angular.module('app.routes', ['ngRoute'])
         // search pages
         .when('/searches',             {templateUrl: 'app/views/pages/search.html',            controller: 'searchController',         controllerAs: 'search'})
         .when('/searches/create',      {templateUrl: 'app/views/pages/searches/single.html',   controller: 'searchCreateController',   controllerAs: 'search'})
-        .when('/searches/:search_id',    {templateUrl: 'app/views/pages/searches/single.html',   controller: 'searchEditController',     controllerAs: 'search'});
+        .when('/searches/:search_id',  {templateUrl: 'app/views/pages/searches/single.html',   controller: 'searchEditController',     controllerAs: 'search'})
+        .when('/test',                 {templateUrl: 'app/views/test.html',                    controller: 'testController',           controllerAs: 'test'});
 
 
         $locationProvider.html5Mode(true);
