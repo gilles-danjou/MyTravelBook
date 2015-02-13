@@ -38,7 +38,8 @@ exports.index = function(req, res) {
     agent.on('abort', function (e) {
         console.log('[wscraper.js] getting a FATAL ERROR [' + e + ']');
         console.log('[wscraper.js] agent has aborted');
-        process.exit();
+        res.send({title: 'The search is longer than expected...', message: 'Don\'t waste your time.<br/>We will send you an alert when complete...' });
+        //process.exit();
     });
 
     // run the web scraper agent

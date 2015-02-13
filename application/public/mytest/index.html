@@ -1,0 +1,97 @@
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>My AngularJS App</title>
+</head>
+
+<body ng-controller="stageController">
+<h1>Plot: {{type}}</h1>
+
+<div id="ctrls">
+    <p class="button" ng-click="utopia();">Utopia</p>
+    <p class="button" id="nightmare">Nightmare</p>
+    <br/>
+    <p class="button red" id="broken">Doesn't work</p>
+    <p class="button green" ng-click="initData();">Restore</p>
+</div>
+<div id="debug">
+    <h2>Actual value of data:</h2>
+
+    <ul>
+        <li ng-repeat="d in data">{{d.name}}: {{d.y}}%</li>
+    </ul>
+</div>
+<!-- directive -->
+<div id="container" draw-pie-chart=""></div>
+</body>
+
+</html>
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+<script src="mytest.js"></script>
+
+<style>
+.ng-invalid {
+    border: 1px solid red;
+}
+body {
+    padding:10px;
+}
+h1 {
+    font-size:24px;
+    font-weight:bold;
+}
+#debug {
+    border:1px solid #999999;
+    color:#999999;
+    padding:10px;
+    position:absolute;
+    top:46px;
+    right:20px;
+    width:140px;
+    z-index:10;
+}
+#debug h2 {
+    color:#333333;
+    font-size:16px;
+    margin-bottom:5px;
+}
+#debug li {
+    font-size:14px;
+    margin:3px 0 0;
+}
+#debug li:nth-child(even) {
+    color:#000000;
+}
+#ctrls {
+    position:absolute;
+    z-index:10;
+}
+#container {
+    margin:0 auto;
+    width:210px;
+}
+.button {
+    border:1px solid #666666;
+    cursor:pointer;
+    display:inline-block;
+    font-size:14px;
+    margin-top:10px;
+    padding:5px 10px;
+    text-align:center;
+    width:90px;
+}
+.button.red {
+    border-color:#FF0000;
+    color:#FF0000;
+}
+.button.green {
+    border-color:Green;
+    color:Green;
+}
+</style>

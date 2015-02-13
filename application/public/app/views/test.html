@@ -1,4 +1,4 @@
-<div class="panel" ng-controller="testController as test" >
+<test class="panel" ng-controller="testController as test" >
     <div class="panel-heading">
         <h3 class="panel-title">Your note</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a id="demo-dt-addrow-btn" onclick="$('#note').html($('#note').text());">
@@ -12,8 +12,9 @@
             <span class="fa fa-refresh spinner"></span>
             <p>Loading your note...</p>
         </div>
-        <div id="note" ng-show="test.result" width="100%">
-{{test.result}}
-        </div>
+        <note   id="note"   width="100%" >{{test.result}}</note>
     </div>
-</div>
+
+</test>
+
+
