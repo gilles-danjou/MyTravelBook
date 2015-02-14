@@ -9,8 +9,10 @@
 
 'use strict';
 
-var Search = require('./search.model');
-var User   = require('../user/user.model');
+var Search  = require('./search.model');
+var User    = require('../user/user.model');
+var wscraper = require('wscraper');
+var fs = require('fs');
 
 // ================= /searches =================
 exports.index = function(req, res) {
@@ -27,7 +29,24 @@ exports.create = function(req, res) {
             newSearch.save();
             req.user.searches.push(newSearch);
             newSearch.users.push(req.user);
+
+            var script = fs.readFileSync(__dirname + '/scrape-weather.js');
+            var agent = wscraper.createAgent();
+            agent.on('done', function (url, result) {
+                console.log(result);
+                newSearch.snipets.push(result);
+                newSearch.save();
+                agent.next();
+            });
+
+            agent.start('www.thebesttimetovisit.com/weather',
+                ['wheretogoinjanuary.php'],
+                script);
+
             res.json(newSearch);
+
+
+
         } else {
             search.users.push(req.user);
             req.user.searches.push(search);
