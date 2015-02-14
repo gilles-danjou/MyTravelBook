@@ -1,4 +1,6 @@
-angular.module('userApp', ['ngAnimate', 'app.routes', 'authService', 'mainCtrl',
+angular.module('userApp', ['ngAnimate',
+    'angular-growl',
+    'app.routes', 'authService', 'mainCtrl',
     'userCtrl', 'userService',
     'searchCtrl', 'searchService',
     'testCtrl', 'testService'
@@ -6,4 +8,8 @@ angular.module('userApp', ['ngAnimate', 'app.routes', 'authService', 'mainCtrl',
 
 .config(function($httpProvider) {                                                                                       // application configuration to integrate token into requests
 	$httpProvider.interceptors.push('AuthInterceptor');                                                                    // attach our auth interceptor to the http requests
-});
+})
+
+.config(['growlProvider', function (growlProvider) {
+    growlProvider.globalTimeToLive(3000);
+}]);

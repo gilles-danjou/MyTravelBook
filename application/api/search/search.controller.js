@@ -27,11 +27,11 @@ exports.create = function(req, res) {
             newSearch.save();
             req.user.searches.push(newSearch);
             newSearch.users.push(req.user);
-            res.json({ 'message' : 'Search CREATED: ' + req.body.query });
+            res.json(newSearch);
         } else {
             search.users.push(req.user);
             req.user.searches.push(search);
-            res.json({'message': 'Search added to you !'});
+            res.json(search);
         }
     });
 };

@@ -8,3 +8,44 @@
 /*#demo-dt-addrow-btn {*/
     /*margin-top: 10px;*/
 /*}*/
+
+/*body, #content-container {*/
+    /*background-color: transparent;*/
+/*}*/
+/*html {*/
+    /*margin:0;*/
+    /*padding:0;*/
+    /*background: url(/img/bg-img/background.png) no-repeat center fixed;*/
+    /*-webkit-background-size: cover; *//* pour anciens Chrome et Safari */
+    /*background-size: cover; *//* version standardisée */
+/*}*/
+
+/*#searchInput {*/
+    /*width: 520px;*/
+    /*font-size: 24px;*/
+    /*border-top-color: rgb(112, 128, 179);*/
+    /*border-top-width: 20px;*/
+    /*border-left-color: rgb(112, 128, 179);*/
+    /*border-left-width: 20px;*/
+    /*border-right-color: rgb(112, 128, 179);*/
+    /*border-right-width: 20px;*/
+    /*border-bottom-color: rgb(112, 128, 179);*/
+    /*border-bottom-width: 20px;*/
+/*}*/
+/*.searchbox {*/
+    /*width: 540px;*/
+/*}*/
+
+/*.searchbox button {*/
+    /*width: 10px!important;*/
+        /*left: -70px;*/
+/*}*/
+
+#searchInput {
+    border-color: #54abd9;
+    border-width: 0px 0px 3px 0px;
+}
+
+.searchbox {
+    width: 400px;
+}

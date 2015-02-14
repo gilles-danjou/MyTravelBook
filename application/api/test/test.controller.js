@@ -28,7 +28,7 @@ exports.index = function(req, res) {
         res.header("Content-Type", "text/html; charset=utf-8");
         res.send(result);
 
-        //agent.next();
+        agent.next();
     });
 
     agent.on('stop', function (n) {
