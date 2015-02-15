@@ -1,5 +1,6 @@
 angular.module('userApp', ['ngAnimate',
     'angular-growl',
+    'infinite-scroll',
     'app.routes', 'authService', 'mainCtrl',
     'userCtrl', 'userService',
     'searchCtrl', 'searchService',
@@ -13,3 +14,5 @@ angular.module('userApp', ['ngAnimate',
 .config(['growlProvider', function (growlProvider) {
     growlProvider.globalTimeToLive(3000);
 }]);
+
+//angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250)

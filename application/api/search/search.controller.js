@@ -66,7 +66,7 @@ exports.create = function(req, res) {
                     });
                     scraper.agent.start(scraper.url, scraper.pages, scraper.script);
                 });
-            });
+            })
 
             res.json(newSearch);
 
