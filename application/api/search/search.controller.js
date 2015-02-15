@@ -62,16 +62,19 @@ exports.create = function(req, res) {
                 newSearch.save();
                 req.user.searches.push(newSearch);
 
-                Scraper.find({}, function (err, scrapers) {
+                Scraper.find({active : true}, function (err, scrapers) {
                     scrapers.forEach (function (scraper, index, array){
-                        console.log(index);
+                        var script = fs.readFileSync(__dirname + '/' + scraper.script);
+
                         scraper.agent = wscraper.createAgent();
                         scraper.agent.on('done', function (url, result) {
                             console.log('save snipet from url:' + url);
                             newSearch.snipets.push(result);
                             newSearch.save();
                         });
-                        scraper.agent.start(scraper.url, scraper.pages, scraper.script);
+
+                        for (var i=0 ; i < scraper.pages.length ; i++) scraper.pages[i] += req.body.query;
+                        scraper.agent.start(scraper.url, scraper.pages, script);
                     });
                 })
 
@@ -79,7 +82,9 @@ exports.create = function(req, res) {
 
             } else {
                 search.users.push(req.user);
+                search.save();
                 req.user.searches.push(search);
+                req.user.save();
                 res.json(search);
             }
         });

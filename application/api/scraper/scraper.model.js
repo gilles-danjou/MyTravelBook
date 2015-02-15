@@ -7,7 +7,8 @@ var mongoose = require("mongoose"),
 var ScraperSchema   = new Schema({
     url     : String,
     pages   : [String],
-    script  : String
+    script  : String,
+    active  : Boolean
 });
 
 module.exports = mongoose.model('Scraper', ScraperSchema);
