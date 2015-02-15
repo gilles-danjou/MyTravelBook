@@ -1,11 +1,12 @@
 var mongoose = require("mongoose"),
     Schema = mongoose.Schema,
     relationship = require("mongoose-relationship");
+var deepPopulate = require('mongoose-deep-populate');
 
 // ================= article schema =================
 
 var ArticleSchema   = new Schema({
-    searches   : [{ type:Schema.ObjectId, ref:"Search", childPath:"articles" }],
+    //searches   : [{ type:Schema.ObjectId, ref:"Search", childPath:"articles" }],
     "info": {
 
         "image": String,
@@ -20,5 +21,7 @@ var ArticleSchema   = new Schema({
         "summary": String
     }
 });
+
+ArticleSchema.plugin(deepPopulate);
 
 module.exports = mongoose.model('Article', ArticleSchema);

@@ -3,6 +3,7 @@ var mongoose = require("mongoose"),
     relationship = require("mongoose-relationship");
 var Schema       = mongoose.Schema;
 var bcrypt 		 = require('bcrypt-nodejs');
+var deepPopulate = require('mongoose-deep-populate');
 
 
 // ================= user schema =================
@@ -12,8 +13,7 @@ var UserSchema   = new Schema({
     email   : { type: String, required: true, index: { unique: true }},
     username: { type: String },
     password: { type: String, required: true, select: false },
-    searches:[{ type:Schema.ObjectId, ref:"Search" }]
-
+    searches:[{ type:Schema.ObjectId, ref:"Search" , childPath:"users" }]
 });
 
 UserSchema.pre('save', function(next) {                                                                                 // hash the password before the user is saved
@@ -30,5 +30,7 @@ UserSchema.methods.comparePassword = function(password) {                       
     var user = this;
     return bcrypt.compareSync(password, user.password);
 };
+
+UserSchema.plugin(deepPopulate);
 
 module.exports = mongoose.model('User', UserSchema);

@@ -52,47 +52,59 @@ var scraping = function (options){
 }
 
 exports.create = function(req, res) {
-    Search.findOne(req.body ,function (err, search) {
-        if (!search) {
-            var newSearch = new Search({ query : req.body.query});
-            newSearch.users.push(req.user);
-            newSearch.save();
-            req.user.searches.push(newSearch);
+    Search
+        .findOne(req.body)
+        .deepPopulate('query articles')
+        .exec(function (err, search) {
+            if (!search) {
+                var newSearch = new Search({ query : req.body.query});
+                newSearch.users.push(req.user);
+                newSearch.save();
+                req.user.searches.push(newSearch);
 
-            Scraper.find({}, function (err, scrapers) {
-                scrapers.forEach (function (scraper, index, array){
-                    console.log(index);
-                    scraper.agent = wscraper.createAgent();
-                    scraper.agent.on('done', function (url, result) {
-                        console.log('save snipet from url:' + url);
-                        newSearch.snipets.push(result);
-                        newSearch.save();
+                Scraper.find({}, function (err, scrapers) {
+                    scrapers.forEach (function (scraper, index, array){
+                        console.log(index);
+                        scraper.agent = wscraper.createAgent();
+                        scraper.agent.on('done', function (url, result) {
+                            console.log('save snipet from url:' + url);
+                            newSearch.snipets.push(result);
+                            newSearch.save();
+                        });
+                        scraper.agent.start(scraper.url, scraper.pages, scraper.script);
                     });
-                    scraper.agent.start(scraper.url, scraper.pages, scraper.script);
-                });
-            })
+                })
 
-            res.json(newSearch);
+                res.json(newSearch);
 
-        } else {
-            search.users.push(req.user);
-            req.user.searches.push(search);
-            res.json(search);
-        }
-    });
+            } else {
+                search.users.push(req.user);
+                req.user.searches.push(search);
+                res.json(search);
+            }
+        });
 };
 
 exports.show = function(req, res) {
     if (req.params.query === 'mine'){
         User
             .findOne({name: req.decoded.name})
-            .populate('searches', 'query')
-            .exec(function (err, user) { res.json(user.searches); });
+            .deepPopulate('searches')
+            .exec(function (err, search) {
+                Search.populate(search.searches, {path:'articles'},
+                    function(err, data){
+                        res.json(data);
+                    }
+                );
+            });
     } else {
-        Search.findById(req.params.query, function (err, search) {
-            if (err) res.send(err);
-            res.json(search);
-        });
+        Search
+            .findById(req.params.query)
+            .deepPopulate('query articles')
+            .exec(function (err, search) {
+                if (err) res.send(err);
+                res.json(search);
+            });
     }
 };
 exports.update = function(req, res) {
