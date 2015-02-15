@@ -11,6 +11,8 @@
 
 var Search  = require('./search.model');
 var User    = require('../user/user.model');
+var Scraper = require('../scraper/scraper.model');
+
 var wscraper = require('wscraper');
 var fs = require('fs');
 
@@ -30,22 +32,26 @@ exports.create = function(req, res) {
             req.user.searches.push(newSearch);
             newSearch.users.push(req.user);
 
-            var script = fs.readFileSync(__dirname + '/scrape-weather.js');
-            var agent = wscraper.createAgent();
-            agent.on('done', function (url, result) {
-                console.log(result);
-                newSearch.snipets.push(result);
-                newSearch.save();
-                agent.next();
+            Scraper.find({}, function (err, scrapers) {
+
+                scrapers.forEach (function (scraper, index, array){
+                    var agent = wscraper.createAgent();
+                    agent.on('done', function (url, result) {
+                        console.log(result);
+                        newSearch.snipets.push(result);
+                        newSearch.save();
+                        agent.next();
+                    });
+     
+                    agent.start(scraper.url, scraper.pages, scraper.script);
+
+                    //agent.start('www.thebesttimetovisit.com/weather',
+                    //    ['wheretogoinjanuary.php'],
+                    //    "result = $('#middle').html();");
+                });
             });
 
-            agent.start('www.thebesttimetovisit.com/weather',
-                ['wheretogoinjanuary.php'],
-                script);
-
             res.json(newSearch);
-
-
 
         } else {
             search.users.push(req.user);

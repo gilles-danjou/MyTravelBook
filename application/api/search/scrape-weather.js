@@ -1,2 +1,0 @@
-
-result = $('#middle').html();

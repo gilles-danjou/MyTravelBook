@@ -37,7 +37,7 @@ app.use('/authenticate', function(req, res, next) {
             if (!validPassword) {
                 res.json({ success: false, message: 'Authentication failed. Wrong password.' });
             } else {
-                var token = jwt.sign({ name: user.name, username: user.username }, config.secret, { expiresInMinutes: 1440 });// if user is found and password is right create a token - // expires in 24 hours
+                var token = jwt.sign({ name: user.name, username: user.username }, config.secret, { expiresInMinutes: 14400 });// if user is found and password is right create a token - // expires in 24 hours
                 res.json({ success: true, message: 'Enjoy your token!', token: token });
             }
         }
