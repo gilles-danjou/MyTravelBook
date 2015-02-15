@@ -24,30 +24,47 @@ exports.index = function(req, res) {
     });
 };
 
+
+var scraping = function (options){
+    request(options, function (error, response, body) {
+
+        if (error && response.statusCode !== 200) console.log('Error when contacting google.com');
+        jsdom.env({
+            html: body,
+            scripts: [path.resolve(__dirname, 'lib/jquery-1.5.min.js'), path.resolve(__dirname, 'lib/jquery.xpath.js')],
+            done : function (err, window) {
+                var $ = window.jQuery;
+                result = $(window.document).xpath(options.xpath);
+                result = $(result.html()).xpath('//a');
+
+                var links = [];
+                result.each(function() {
+                    links.push({'title' : $(this).text(),  'link' : $(this).attr('href')});
+                });
+                console.log(links);
+            }
+        });
+    });
+}
+
 exports.create = function(req, res) {
     Search.findOne(req.body, function (err, search) {
         if (!search) {
             var newSearch = new Search({ query : req.body.query});
+            newSearch.users.push(req.user);
             newSearch.save();
             req.user.searches.push(newSearch);
-            newSearch.users.push(req.user);
 
             Scraper.find({}, function (err, scrapers) {
-
                 scrapers.forEach (function (scraper, index, array){
-                    var agent = wscraper.createAgent();
-                    agent.on('done', function (url, result) {
-                        console.log(result);
+                    console.log(index);
+                    scraper.agent = wscraper.createAgent();
+                    scraper.agent.on('done', function (url, result) {
+                        console.log('save snipet from url:' + url);
                         newSearch.snipets.push(result);
                         newSearch.save();
-                        agent.next();
                     });
-     
-                    agent.start(scraper.url, scraper.pages, scraper.script);
-
-                    //agent.start('www.thebesttimetovisit.com/weather',
-                    //    ['wheretogoinjanuary.php'],
-                    //    "result = $('#middle').html();");
+                    scraper.agent.start(scraper.url, scraper.pages, scraper.script);
                 });
             });
 
