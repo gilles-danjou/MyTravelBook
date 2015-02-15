@@ -12,16 +12,20 @@
 var Search  = require('./search.model');
 var User    = require('../user/user.model');
 var Scraper = require('../scraper/scraper.model');
+var Article = require('../article/article.model');
 
 var wscraper = require('wscraper');
 var fs = require('fs');
 
 // ================= /searches =================
 exports.index = function(req, res) {
-    Search.find({}, function(err, searches) {
-        if (err) res.send(err);
-        res.json(searches);	                                                                        			// return the users
-    });
+    Search
+        .find({})
+        .deepPopulate('query articles')
+        .exec( function(err, searches) {
+            if (err) res.send(err);
+            res.json(searches);
+        });
 };
 
 
@@ -48,7 +52,7 @@ var scraping = function (options){
 }
 
 exports.create = function(req, res) {
-    Search.findOne(req.body, function (err, search) {
+    Search.findOne(req.body ,function (err, search) {
         if (!search) {
             var newSearch = new Search({ query : req.body.query});
             newSearch.users.push(req.user);

@@ -20,7 +20,7 @@ angular.module('app.routes', ['ngRoute'])
 		.when('/users/:user_id', {templateUrl: 'app/views/pages/users/single.html', controller: 'userEditController', controllerAs: 'user'})
 
         // search pages
-        .when('/searches',             {templateUrl: 'app/views/pages/search.html',            controller: 'searchController',         controllerAs: 'search'})
+        .when('/searches',             {templateUrl: 'app/views/search-results.html',            controller: 'searchController',         controllerAs: 'search'})
         .when('/searches/create',      {templateUrl: 'app/views/pages/searches/single.html',   controller: 'searchCreateController',   controllerAs: 'search'})
         .when('/searches/:search_id',  {templateUrl: 'app/views/pages/searches/single.html',   controller: 'searchEditController',     controllerAs: 'search'})
         .when('/test',                 {templateUrl: 'app/views/test.html',                    controller: 'testController',           controllerAs: 'test'});
