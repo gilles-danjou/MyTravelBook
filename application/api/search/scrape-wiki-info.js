@@ -3,8 +3,9 @@
  */
 try {
 var image;
-    image = $('.infobox img')[0].src;
-//console.log('erere')
+    image = 'e'; //$('.infobox img:first').attr('src');
+
+ //console.log('erere')
 var imageTitle = $('#firstHeading').text();
 var bubble = 'img/wikipedia.png';
 var text = $('#mw-content-text > p').text().split('.');

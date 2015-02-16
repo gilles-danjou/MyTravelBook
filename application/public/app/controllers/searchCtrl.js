@@ -21,7 +21,7 @@ angular.module('searchCtrl', ['searchService'])
             } else {
                 vm.message = data.message;
                 //$scope.search.searches.push(data);
-                $scope.search.mySearches.push(data);
+                //$scope.search.mySearches.push(data);
             }
             $scope.main.basicUsage('success')
         });
