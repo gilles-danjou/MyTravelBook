@@ -1,51 +1,24 @@
-/**
- * Created by gillesdanjou on 15/02/15.
- */
-try {
-var image;
-    image = 'e'; //$('.infobox img:first').attr('src');
 
- //console.log('erere')
+
+var image = $('.infobox img:first').attr('src');
 var imageTitle = $('#firstHeading').text();
 var bubble = 'img/wikipedia.png';
 var text = $('#mw-content-text > p').text().split('.');
+
 var summary = '', i = 0;
 while (summary.length < 500) { summary += text[i++]; }
-//
-//var text = $('#mw-content-text > p');
-//
-//summary = text[0].text() + text[1].text() + text[2].text();
-//
-//result = {
-//    'info': {
-//        'image': image,
-//            'imageTitle': imageTitle,
-//            'bubble': bubble,
-//            'link1': {
-//            'label': '@wikipedia',
-//            'uri': window.location.href
-//        },
-//        'comment': 'Maybe a good idea to visit...',
-//        'title': 'A must have in your hollydays:',
-//        'summary': summary
-//    }
-//};
 
- result = {
+var result =  {
     'info': {
-        'image':  '' + image,
-        'imageTitle': imageTitle,
-        'bubble': bubble,
+        'image'         :   image,
+        'imageTitle'    : imageTitle,
+        'bubble'        : bubble,
         'link1': {
-            'label': '@stephen_doe',
-            'uri': '#'
+            'label'     : '@stephen_doe',
+            'uri'       : '#'
         },
-        'comment': 'Web and Graphic designer',
-        'title': 'Consectetur adipisicing',
-        'summary': summary
+        'comment'       : 'Web and Graphic designer',
+        'title'         : 'Consectetur adipisicing',
+        'summary'       : summary
     }
-}
-
-}  catch(err) {
-    console.log(err.message);
-}
+};

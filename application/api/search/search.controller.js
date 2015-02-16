@@ -9,7 +9,6 @@
 
 'use strict';
 var request  = require('request');
-var jsdom = require('jsdom');
 var path = require('path');
 
 var Search  = require('./search.model');
@@ -17,7 +16,7 @@ var User    = require('../user/user.model');
 var Scraper = require('../scraper/scraper.model');
 var Article = require('../article/article.model');
 
-var wscraper = require('wscraper');
+var webscraper = require('../scraper/scraper');
 var fs = require('fs');
 
 // ================= /searches =================
@@ -32,6 +31,7 @@ exports.index = function(req, res) {
 };
 
 
+/*
 var scraping = function (scraper, oneSearch){
     request({url: scraper.url , proxy:''}, function (error, response, body) {
 
@@ -78,6 +78,7 @@ var scraping = function (scraper, oneSearch){
         });
     });
 }
+*/
 
 exports.create = function(req, res) {
     Search
@@ -86,26 +87,42 @@ exports.create = function(req, res) {
         .exec(function (err, search) {
             if (!search) {
                 var newSearch = new Search({ query : req.body.query});
-                newSearch.users.push(req.user);
-                newSearch.save();
-                req.user.searches.push(newSearch);
+                //newSearch.users.push(req.user);
+                //newSearch.save();
+                //req.user.searches.push(newSearch);
 
                 Scraper.find({active : true}, function (err, scrapers) {
                     console.log('Begin Scrapping');
-                    scrapers.forEach (function (scraper, index, array){
-                        console.log(' - Scrape :' + scraper.url+ req.body.query);
-                        scraping({url: scraper.url + req.body.query }, newSearch);
+                    scrapers.forEach (function (scraper, index, array){console.log('1')
+                        console.log('Scrape:' + scraper.url);
+                        var script = fs.readFileSync(__dirname + '/' + scraper.script).toString();
+
+                        var agent = webscraper.createAgent();
+                        agent.on('done', function (url, result) {
+                            console.log('save snipet from url:' + url);
+                            console.log(result);
+                            try {
+                                var newArticle = new Article(result).save();
+                                newSearch.articles.push(newArticle);
+                                newSearch.save();
+                                agent.next();
+                            }  catch(err) {
+                                console.log(err.message);
+                            }
+
+                        });
+                        agent.start(scraper.url, [req.body.query], script);
                     });
                 });
 
                 res.json('newSearch');
 
             } else {
-                search.users.push(req.user);
-                search.save();
-                req.user.searches.push(search);
-                req.user.save();
-                console.log('search "' + req.body.query + '" already exist : send it back to the user.');
+                //search.users.push(req.user);
+                //search.save();
+                //req.user.searches.push(search);
+                //req.user.save();
+                //console.log('search "' + req.body.query + '" already exist : send it back to the user.');
                 res.json('search');
             }
         });
