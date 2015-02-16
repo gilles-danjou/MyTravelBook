@@ -5,6 +5,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="application1 node_modules" level="project" />
-    <orderEntry type="library" name="application node_modules" level="project" />
+    <orderEntry type="library" name="Node.js v0.10.36 Core Modules" level="application" />
+    <orderEntry type="library" name="jQuery" level="project" />
+    <orderEntry type="library" name="angular" level="application" />
+    <orderEntry type="library" name="angular-route" level="application" />
+    <orderEntry type="library" name="angular-animate" level="application" />
   </component>
 </module>

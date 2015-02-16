@@ -13,6 +13,12 @@
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="css/theme.css" rel="stylesheet">
+
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     
@@ -57,7 +63,7 @@
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
                     <li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-                    <li><a href="/searches"><span class="glyphicon glyphicon-search"></span> Seach</a></li>
+                    <li><a href="/searches/mine"><span class="glyphicon glyphicon-search"></span>My searches</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -100,15 +106,5 @@
     <!-- ANGULAR VIEWS -->
     <div ng-view></div>
 </main>
-
-<script>
-
-    $(addCrudControls());
-
-    function addCrudControls() {
-     alert('e')
-    };
-
-</script>
 </body>
 </html>

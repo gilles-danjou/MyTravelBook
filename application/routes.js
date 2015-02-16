@@ -7,7 +7,6 @@ var jwt        = require('jsonwebtoken');
 var config     = require('./config');
 var User       = require('./api/user/user.model');
 
-
 module.exports = function(app, express) {
 
     var apiRouter = express.Router();
@@ -36,6 +35,8 @@ module.exports = function(app, express) {
     apiRouter.use('/snipet'        , require('./api/snipet'));
     apiRouter.use('/searches'      , require('./api/search'));
     apiRouter.use('/users'         , require('./api/user'));
+    apiRouter.use('/scrapers'         , require('./api/scraper'));
+
     apiRouter.get('/', function(req, res) { res.json({ message: 'hooray! welcome to our api!' }); });
 
     return apiRouter;
