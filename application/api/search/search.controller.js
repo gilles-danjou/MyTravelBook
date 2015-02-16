@@ -63,28 +63,40 @@ exports.create = function(req, res) {
                 req.user.searches.push(newSearch);
 
                 Scraper.find({active : true}, function (err, scrapers) {
+                    console.log('Begin Scrapping');
                     scrapers.forEach (function (scraper, index, array){
+                        console.log(' - Scrape :' + scraper.url);
                         var script = fs.readFileSync(__dirname + '/' + scraper.script);
 
                         scraper.agent = wscraper.createAgent();
                         scraper.agent.on('done', function (url, result) {
                             console.log('save snipet from url:' + url);
-                            newSearch.snipets.push(result);
-                            newSearch.save();
+                            console.log(result);
+                            try {
+                                var newArticle = new Article(result).save();
+                                newSearch.articles.push(newArticle);
+                                newSearch.save();
+                            scraper.agent.next();
+                            }  catch(err) {
+                                console.log(err.message);
+                            }
+
                         });
 
                         for (var i=0 ; i < scraper.pages.length ; i++) scraper.pages[i] += req.body.query;
                         scraper.agent.start(scraper.url, scraper.pages, script);
                     });
-                })
+                });
 
                 res.json(newSearch);
 
             } else {
-                search.users.push(req.user);
-                search.save();
-                req.user.searches.push(search);
-                req.user.save();
+                //search.users.push(req.user);
+                //search.save();
+                //req.user.searches.push(search);
+                //req.user.save();
+                console.log('search "' + req.body.query + '" already exist : send it back to the user.');
+
                 res.json(search);
             }
         });
