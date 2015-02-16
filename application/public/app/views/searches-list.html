@@ -17,11 +17,13 @@
                         <div class="row">
                             <div class="col-lg-7">
                                 <h3 class="panel-media-heading">{{oneArticle.info.imageTitle}}</h3>
-                                <a href="{{aricle.link1.uri}}" class="btn-link">{{oneArticle.info.link1.label}}</a>
+                                <a href="{{oneArticle.link1.uri}}" class="btn-link">{{oneArticle.info.link1.label}}</a>
                                 <p class="text-muted mar-btm">{{oneArticle.info.comment}}</p>
                             </div>
                             <div class="col-lg-5 text-lg-right">
-                                <button class="btn btn-sm btn-primary">Add Friend</button>
+                                <a ng-click="search.deleteArticle(oneArticle._id)">
+                                    <button class="btn btn-danger btn-labeled fa fa-remove">Delete</button>
+                                </a>
                                 <button class="btn btn-sm btn-mint btn-icon fa fa-envelope icon-lg"></button>
                             </div>
                         </div>

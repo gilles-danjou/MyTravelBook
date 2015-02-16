@@ -32,6 +32,8 @@ angular.module('searchCtrl', ['searchService'])
             Search.mine().success(function(data) { vm.mySearches = data; vm.deleteteProcessing = false; });
         });
     };
+
+ 
 }])
 
 .controller('searchCreateController', function(Search) {

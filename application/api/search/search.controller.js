@@ -53,16 +53,16 @@ var scraping = function (scraper, oneSearch){
 
                 var newArticle =  {
                     'info': {
-                        'image':  '' + image,
-                        'imageTitle': imageTitle,
-                        'bubble': bubble,
+                        'image'         :   image,
+                        'imageTitle'    : imageTitle,
+                        'bubble'        : bubble,
                         'link1': {
-                            'label': '@stephen_doe',
-                            'uri': '#'
+                            'label'     : '@stephen_doe',
+                            'uri'       : '#'
                         },
-                        'comment': 'Web and Graphic designer',
-                        'title': 'Consectetur adipisicing',
-                        'summary': summary
+                        'comment'       : 'Web and Graphic designer',
+                        'title'         : 'Consectetur adipisicing',
+                        'summary'       : summary
                     }
                 };
                 console.log(newArticle);
@@ -97,7 +97,7 @@ exports.create = function(req, res) {
                         scraping({url: scraper.url + req.body.query }, newSearch);
                     });
                 });
- 
+
                 res.json('newSearch');
 
             } else {
