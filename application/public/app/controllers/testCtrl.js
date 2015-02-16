@@ -182,19 +182,31 @@ function replace_all_rel_by_abs(html){
 
 
 angular.module('testCtrl', ['testService'])
+//
+//.controller('testController', ['$scope', '$timeout', 'Test', function($scope,$timeout, Test) {
+//    var vm = this;
+//    vm.processing = true;
+//
+//        Test.all().success(function(data) {
+//
+//             vm.result  = replace_all_rel_by_abs(data, 'http://www.thebesttimetovisit.com/');
+//            vm.processing = false;
+//            $timeout(function() {
+//                $('#note').html($('#note').html());
+//            },1000);
+//     });
+//
+//}]);
 
-.controller('testController', ['$scope', '$timeout', 'Test', function($scope,$timeout, Test) {
-    var vm = this;
-    vm.processing = true;
 
-        Test.all().success(function(data) {
-
-             vm.result  = replace_all_rel_by_abs(data, 'http://www.thebesttimetovisit.com/');
-            vm.processing = false;
-            $timeout(function() {
-                $('#note').html($('#note').html());
-            },1000);
-     });
-
-}]);
-
+.testDirective = function (Test){
+    return {
+        controller: 'testController as test',
+        link: function(scope, attr, elem, test){
+            Test.getFromServer().success(function(data) {
+                test.result = data;
+                test.processing = false;
+            });
+        }
+    }
+}
