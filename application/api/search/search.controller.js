@@ -87,9 +87,9 @@ exports.create = function(req, res) {
         .exec(function (err, search) {
             if (!search) {
                 var newSearch = new Search({ query : req.body.query});
-                //newSearch.users.push(req.user);
-                //newSearch.save();
-                //req.user.searches.push(newSearch);
+                newSearch.users.push(req.user);
+                newSearch.save();
+                req.user.searches.push(newSearch);
 
                 Scraper.find({active : true}, function (err, scrapers) {
                     console.log('Begin Scrapping');
@@ -100,12 +100,17 @@ exports.create = function(req, res) {
                         var agent = webscraper.createAgent();
                         agent.on('done', function (url, result) {
                             console.log('save snipet from url:' + url);
-                            console.log(result);
+                            console.log('Result:\n' + result);
                             try {
-                                var newArticle = new Article(result).save();
-                                newSearch.articles.push(newArticle);
-                                newSearch.save();
+                                var newArticle = new Article(result);
+                                //newArticle.articles.push(newSearch);
+                                newArticle.save(function (err, oneArticle) {
+                                    newSearch.articles.push(oneArticle);
+                                    newSearch.save();
+                                });
+
                                 agent.next();
+
                             }  catch(err) {
                                 console.log(err.message);
                             }
@@ -114,15 +119,14 @@ exports.create = function(req, res) {
                         agent.start(scraper.url, [req.body.query], script);
                     });
                 });
-
                 res.json('newSearch');
 
             } else {
-                //search.users.push(req.user);
-                //search.save();
-                //req.user.searches.push(search);
-                //req.user.save();
-                //console.log('search "' + req.body.query + '" already exist : send it back to the user.');
+                search.users.push(req.user);
+                search.save();
+                req.user.searches.push(search);
+                req.user.save();
+                console.log('search "' + req.body.query + '" already exist : send it back to the user.');
                 res.json('search');
             }
         });
