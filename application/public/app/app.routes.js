@@ -20,8 +20,8 @@ angular.module('app.routes', ['ngRoute'])
 
 		.when('/test',                 {templateUrl: 'app/views/test.html',                    controller: 'testController',           controllerAs: 'test'})
 
-		.when('/chat',                 {templateUrl: 'app/views/chat.html',                    controller: 'chatController',           controllerAs: 'chat'})
-        .when('/vote',                 {templateUrl: 'app/views/vote.html',                    controller: 'voteController',           controllerAs: 'vote'});
+		.when('/chat',                 {templateUrl: 'app/views/chat.html'})
+        .when('/vote',                 {templateUrl: 'app/views/vote.html'});
 
 		$locationProvider.html5Mode(true);
 

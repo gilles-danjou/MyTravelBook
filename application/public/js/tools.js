@@ -7,3 +7,5 @@ updatePageTitle = function(pageTitle){
     scope.main.pageTitle = pageTitle;
 }
 
+var host = location.origin;
+socket = io.connect(host);

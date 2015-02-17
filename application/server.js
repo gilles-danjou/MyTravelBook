@@ -10,8 +10,8 @@ var config 	   = require('./config');
 var path 	   = require('path');
 var jwt        = require('jsonwebtoken');
 var User       = require('./api/user/user.model');
-var server = require('http').createServer(app)
-    , io = require('socket.io').listen(server);
+var server     = require('http').Server(app)
+var io         = require('socket.io')(server);
 
 require('require-dir');
 
@@ -60,17 +60,26 @@ server.listen(config.port);
 console.log('Magic happens on port ' + config.port);
 
 var votes = [
-    { choice: 1, label: 'VanillaJS', votes: 0 },
-    { choice: 2, label: 'AngularJS', votes: 0 },
-    { choice: 3, label: 'BackboneJS', votes: 0 },
-    { choice: 4, label: 'EmberJS', votes: 0 }
+	{ choice: 1, label: 'VanillaJS', votes: 0 },
+	{ choice: 2, label: 'AngularJS', votes: 0 },
+	{ choice: 3, label: 'BackboneJS', votes: 0 },
+	{ choice: 4, label: 'EmberJS', votes: 0 }
 ];
 
+
 io.sockets.on('connection', function (socket) {
-    socket.emit('votes', { votes: votes });
-    socket.on('vote', function(msg){
-        console.log(msg);
-        votes[msg.vote-1].votes++;
-        io.sockets.emit('votes', { votes: votes });
-    })
+	socket.broadcast.emit('hi');
+
+	socket.on('chat message', function(msg){
+		io.sockets.emit('chat message', msg);
+		console.log('Chat:' + msg);
+
+	});
+
+	socket.emit('votes', { votes: votes });
+	socket.on('vote', function(msg){
+        console.log('vote:' + votes[msg.vote-1].votes);
+		votes[msg.vote-1].votes++;
+		io.sockets.emit('votes', { votes: votes });
+	})
 });

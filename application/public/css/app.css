@@ -41,6 +41,8 @@
         /*left: -70px;*/
 /*}*/
 
+
+/**** Global ****/
 #searchInput {
     border-color: #54abd9;
     border-width: 0px 0px 3px 0px;
@@ -53,3 +55,21 @@
 .no-padding-top {
     padding-top: 0px;
 }
+
+.page-header {
+    font-weight: 200;
+}
+
+
+/**** chat ****/
+#chatInput {
+    width: 80%;
+    margin-right: 20px;
+    font-size: 18px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+#chatMessages { list-style-type: none; margin: 0; padding: 0; margin-top: 20px; }
+#chatMessages li { padding: 5px 10px; }
+#chatMessages li:nth-child(odd) { background: white; }

@@ -1,8 +1,6 @@
 
-<vote class="container" ng-cloak>
+<vote class="container" ng-controller="voteController as vote" ng-cloak>
 
-    <h1 class="vote">Votes</h1>
-    <br/>
     <div class="row" ng-repeat="oneVote in vote.votes">
         <div class="col-xs-4 vote"> {{ oneVote.label }} </div>
         <div class="col-xs-4 vote"> {{ oneVote.votes }} </div>

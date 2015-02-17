@@ -1,50 +1,47 @@
 
+
+
 angular.module('chatCtrl', [])
 
 .controller('chatController', ['$scope', function($scope) {
     var vm = this;
 
+    //var host = location.origin;
+    //vm.socket = io.connect(host);
 
-    //    var socket = io();
-    //
-    //    updatePageTitle('Chat with other travellers');
-    //
-    //vm.send = function() {
-    //    socket.emit('chat message', $('#m').val());
-    //    $('#m').val('');
-    //}
+    updatePageTitle('Chat with other travellers');
 
-
-
-     var host = location.origin;
-     vm.socket = io.connect(host);
-
-    vm.votes = [];
-
-    vm.voteFor = function(choice){
-        vm.socket.emit('vote', {vote : choice })
+    vm.send = function() {
+        socket.emit('chat message', $('#chatInput').val());
+        $('#chatInput').val('');
     }
 
-    vm.socket.on('votes', function(msg){
-        vm.votes = msg.votes;
-        $scope.$apply();
+    socket.on('chat message', function(msg){
+
+        $('#chatMessages').append($('<li>').text(msg));
     });
+
 
 
 }])
 
-
-
 .controller('voteController', ['$scope', function($scope) {
     var vm = this;
 
-    var host = location.origin;
-    vm.socket = io.connect(host);
-    vm.votes = [];
+    vm.votes = [
+            { choice: 1, label: 'VanillaJS', votes: 0 },
+            { choice: 2, label: 'AngularJS', votes: 0 },
+            { choice: 3, label: 'BackboneJS', votes: 0 },
+            { choice: 4, label: 'EmberJS', votes: 0 }
+        ];
 
-    vm.voteFor = function(choice){ vm.socket.emit('vote', {vote : choice }) }
+    socket.emit('votes')
 
-    vm.socket.on('votes', function(msg){
+    updatePageTitle('Vote for your favorites');
+
+    vm.voteFor = function(choice){ socket.emit('vote', {vote : choice }) }
+
+    socket.on('votes', function(msg){
         vm.votes = msg.votes;
         $scope.$apply();
     });
