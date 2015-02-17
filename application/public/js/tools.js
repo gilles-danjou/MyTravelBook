@@ -6,3 +6,4 @@ updatePageTitle = function(pageTitle){
     var scope = angular.element(document.querySelector('#pageTitle')).scope();
     scope.main.pageTitle = pageTitle;
 }
+

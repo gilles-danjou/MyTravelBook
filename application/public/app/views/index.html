@@ -1,110 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Make My Trip</title>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+	<!--<meta charset="UTF-8">-->
+	<!--<title>Make My Trip</title>-->
 
-	<!-- FOR ANGULAR ROUTING -->
-	<base href="/">
+	<!--&lt;!&ndash; FOR ANGULAR ROUTING &ndash;&gt;-->
+	<!--<base href="/">-->
 
-	<!-- CSS  -->
-	<!-- load bootstrap from CDN and custom CSS -->
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
-	<link rel="stylesheet" href="assets/css/style.css">
+	<!--&lt;!&ndash; CSS  &ndash;&gt;-->
+	<!--&lt;!&ndash; load bootstrap from CDN and custom CSS &ndash;&gt;-->
+	<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">-->
+	<!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">-->
+	<!--<link rel="stylesheet" href="assets/css/style.css">-->
 
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <!--&lt;!&ndash;[if lt IE 9]>-->
+    <!--<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
 
-    <link href="css/theme.css" rel="stylesheet">
+    <!--<link href="css/theme.css" rel="stylesheet">-->
 
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    
-	<!-- JS -->
-	<!-- load angular and angular-route via CDN -->
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>-->
+    <!--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>-->
+    <!---->
+	<!--&lt;!&ndash; JS &ndash;&gt;-->
+	<!--&lt;!&ndash; load angular and angular-route via CDN &ndash;&gt;-->
+	<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>-->
+	<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>-->
+	<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js"></script>-->
 
-	<!-- controllers -->
-	<script src="app/controllers/mainCtrl.js"></script>
-	<script src="app/controllers/userCtrl.js"></script>
-    <script src="app/controllers/searchCtrl.js"></script>
-    <script src="app/controllers/testCtrl.js"></script>
-
-
-    <!-- services -->
-	<script src="app/services/authService.js"></script>
-	<script src="app/services/userService.js"></script>
-    <script src="app/services/searchService.js"></script>
-    <script src="app/services/testService.js"></script>
+	<!--&lt;!&ndash; controllers &ndash;&gt;-->
+	<!--<script src="app/controllers/mainCtrl.js"></script>-->
+	<!--<script src="app/controllers/userCtrl.js"></script>-->
+    <!--<script src="app/controllers/searchCtrl.js"></script>-->
+    <!--<script src="app/controllers/testCtrl.js"></script>-->
+    <!--<script src="app/controllers/chatCtrl.js"></script>-->
 
 
-	<!-- main Angular app files -->
-	<script src="app/app.routes.js"></script>
-	<script src="app/app.js"></script>
+    <!--&lt;!&ndash; services &ndash;&gt;-->
+	<!--<script src="app/services/authService.js"></script>-->
+	<!--<script src="app/services/userService.js"></script>-->
+    <!--<script src="app/services/searchService.js"></script>-->
+    <!--<script src="app/services/testService.js"></script>-->
 
-</head>
-<body ng-app="userApp" ng-controller="mainController as main">
-<!-- NAVBAR -->
-<div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-fire text-danger"></span>Make My Trip</a>
-        </div>
-        <center>
-            <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav">
-                    <li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-                    <li><a href="/searches/mine"><span class="glyphicon glyphicon-search"></span>My searches</a></li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a>
-                            </li>
-                            <li><a href="#">Another action</a>
-                            </li>
-                            <li><a href="#">Something else here</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav ">
-                    <li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
-                    <li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.username }}!</li>
-                    <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Username">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-default">Sign In</button>
-                </form>
-            </div>
-        </center>
-    </div>
-</div>
+	<!--&lt;!&ndash; main Angular app files &ndash;&gt;-->
+	<!--<script src="app/app.routes.js"></script>-->
+	<!--<script src="app/app.js"></script>-->
 
-<main class="container">
-    <!-- ANGULAR VIEWS -->
-    <div ng-view></div>
-</main>
-</body>
-</html>
+<!--</head>-->
+<!--<body ng-app="userApp" ng-controller="mainController as main">-->
+<!--&lt;!&ndash; NAVBAR &ndash;&gt;-->
+<!--<div class="navbar navbar-default navbar-fixed-top">-->
+    <!--<div class="container">-->
+        <!--<div class="navbar-header">-->
+            <!--<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
+            <!--<a href="/" class="navbar-brand"><span class="glyphicon glyphicon-fire text-danger"></span>Make My Trip</a>-->
+        <!--</div>-->
+        <!--<center>-->
+            <!--<div class="navbar-collapse collapse" id="navbar-main">-->
+                <!--<ul class="nav navbar-nav">-->
+                    <!--<li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>-->
+                    <!--<li><a href="/searches/mine"><span class="glyphicon glyphicon-search"></span>My searches</a></li>-->
+
+                    <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a href="#">Action</a>-->
+                            <!--</li>-->
+                            <!--<li><a href="#">Another action</a>-->
+                            <!--</li>-->
+                            <!--<li><a href="#">Something else here</a>-->
+                            <!--</li>-->
+                            <!--<li class="divider"></li>-->
+                            <!--<li><a href="#">Separated link</a>-->
+                            <!--</li>-->
+                            <!--<li class="divider"></li>-->
+                            <!--<li><a href="#">One more separated link</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                <!--</ul>-->
+                <!--<ul class="nav navbar-nav ">-->
+                    <!--<li ng-if="!main.loggedIn"><a href="/login">Login</a></li>-->
+                    <!--<li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.username }}!</li>-->
+                    <!--<li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>-->
+                <!--</ul>-->
+                <!--<form class="navbar-form navbar-right" role="search">-->
+                    <!--<div class="form-group">-->
+                        <!--<input type="text" class="form-control" name="username" placeholder="Username">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<input type="text" class="form-control" name="password" placeholder="Password">-->
+                    <!--</div>-->
+                    <!--<button type="submit" class="btn btn-default">Sign In</button>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</center>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<main class="container">-->
+    <!--&lt;!&ndash; ANGULAR VIEWS &ndash;&gt;-->
+    <!--<div ng-view></div>-->
+<!--</main>-->
+<!--</body>-->
+<!--</html>-->

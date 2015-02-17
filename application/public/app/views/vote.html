@@ -1,0 +1,14 @@
+
+<vote class="container" ng-cloak>
+
+    <h1 class="vote">Votes</h1>
+    <br/>
+    <div class="row" ng-repeat="oneVote in vote.votes">
+        <div class="col-xs-4 vote"> {{ oneVote.label }} </div>
+        <div class="col-xs-4 vote"> {{ oneVote.votes }} </div>
+        <div class="btn btn-primary col-xs-4" ng-click="vote.voteFor(oneVote.choice)">+1</div>
+    </div>
+
+
+</vote>
+

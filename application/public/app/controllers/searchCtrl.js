@@ -6,7 +6,6 @@ angular.module('searchCtrl', ['searchService'])
     vm.type = 'create';
     updatePageTitle('Find a destination');
 
-   // Search.all().success(function(data) { vm.processing = false; vm.searches = data; });
     Search.mine().success(function(data) { vm.processing = false; vm.mySearches = data; });
 
     vm.saveSearch = function() {
@@ -20,12 +19,12 @@ angular.module('searchCtrl', ['searchService'])
                 alert ('err: ' + data.message)
             } else {
                 vm.message = data.message;
-                //$scope.search.searches.push(data);
-                //$scope.search.mySearches.push(data);
+                $scope.search.mySearches.push(data);
             }
             $scope.main.basicUsage('success')
         });
     };
+
     vm.deleteSearch = function(id) {
         vm.deleteteProcessing = true;
         Search.delete(id).success(function(data) {

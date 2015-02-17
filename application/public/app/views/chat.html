@@ -1,0 +1,31 @@
+
+<chat class="panel" ng-controller="chatController as chat" >
+    <form  ng-submit="chat.send()">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Chat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a id="demo-dt-addrow-btn" onclick="">
+                <button type="submit" class="btn btn-primary btn-labeled fa fa-plus">send</button>
+            </a>
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        <ul id="messages"></ul>
+        <form action="">
+            <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
+    </div>
+    </form>
+</chat>
+<vote class="container"  ng-cloak>
+
+    <h1 class="vote">Votes</h1>
+    <br/>
+    <div class="row" ng-repeat="vote in chat.votes">
+        <div class="col-xs-4 vote"> {{ vote.label }} </div>
+        <div class="col-xs-4 vote"> {{ vote.votes }} </div>
+        <div class="btn btn-primary col-xs-4" ng-click="chat.voteFor(vote.choice)">+1</div>
+    </div>
+</vote>
+

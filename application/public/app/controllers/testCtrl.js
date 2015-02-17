@@ -183,7 +183,7 @@ function replace_all_rel_by_abs(html){
 
 angular.module('testCtrl', ['testService'])
 //
-//.controller('testController', ['$scope', '$timeout', 'Test', function($scope,$timeout, Test) {
+.controller('testController', ['$scope', '$timeout', 'Test', function($scope,$timeout, Test) {
 //    var vm = this;
 //    vm.processing = true;
 //
@@ -196,7 +196,7 @@ angular.module('testCtrl', ['testService'])
 //            },1000);
 //     });
 //
-//}]);
+}])
 
 
 .testDirective = function (Test){

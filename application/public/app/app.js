@@ -4,7 +4,8 @@ angular.module('userApp', ['ngAnimate',
     'app.routes', 'authService', 'mainCtrl',
     'userCtrl', 'userService',
     'searchCtrl', 'searchService',
-    'testCtrl', 'testService'
+    'testCtrl', 'testService',
+    'chatCtrl'
 ])
 
 .config(function($httpProvider) {                                                                                       // application configuration to integrate token into requests

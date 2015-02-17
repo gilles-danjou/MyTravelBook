@@ -103,7 +103,6 @@ exports.create = function(req, res) {
                             console.log('Result:\n' + result);
                             try {
                                 var newArticle = new Article(result);
-                                //newArticle.articles.push(newSearch);
                                 newArticle.save(function (err, oneArticle) {
                                     newSearch.articles.push(oneArticle);
                                     newSearch.save();
@@ -114,9 +113,10 @@ exports.create = function(req, res) {
                             }  catch(err) {
                                 console.log(err.message);
                             }
-
                         });
+
                         agent.start(scraper.url, [req.body.query], script);
+                        
                     });
                 });
                 res.json('newSearch');
@@ -127,7 +127,7 @@ exports.create = function(req, res) {
                 req.user.searches.push(search);
                 req.user.save();
                 console.log('search "' + req.body.query + '" already exist : send it back to the user.');
-                res.json('search');
+                res.json(search);
             }
         });
 };
