@@ -66,14 +66,13 @@ var votes = [
 	{ choice: 4, label: 'EmberJS', votes: 0 }
 ];
 
-
 io.sockets.on('connection', function (socket) {
+
 	socket.broadcast.emit('hi');
 
 	socket.on('chat message', function(msg){
 		io.sockets.emit('chat message', msg);
 		console.log('Chat:' + msg);
-
 	});
 
 	socket.emit('votes', { votes: votes });
