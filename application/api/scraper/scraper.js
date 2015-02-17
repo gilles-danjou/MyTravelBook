@@ -90,34 +90,24 @@ WebScraper.prototype.next = function() {
                     var iconv = new Iconv(encoding, 'UTF-8');
                     data = iconv.convert(body);
                 }
-                console.log('rexievd')
 
                 jsdom.env({
                     html: body,
                     scripts: [pathMod.resolve(__dirname, 'lib/jquery-1.5.min.js'), pathMod.resolve(__dirname, 'lib/jquery.xpath.js')],
                     done : function (err, window) {
-                        console.log(window.jQuery)
 
                         self.sandbox.$ = window.jQuery;
 
                         try {
-                            console.log('try')
-
-                            // run the script in the sandbox
                             vm.runInNewContext(self.script, self.sandbox);
                         } catch (e) {
-                            console.log(e)
-
+                            console.log(e);
                             self.emit('abort', e); // catch any error from the script
                             return;
                         }
                         if (self.sandbox.result) {
-                            console.log('if')
-
                             self.emit('done', url, self.sandbox.result)
                         } else {
-                            console.log('else')
-
                             self.emit('abort', 'parsing script is returning null value!')
                         }
                     }

@@ -13,7 +13,7 @@ angular.module('userApp', ['ngAnimate',
 })
 
 .config(['growlProvider', function (growlProvider) {
-    growlProvider.globalTimeToLive(3000);
+    growlProvider.globalTimeToLive(10000);
 }]);
 
 //angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250)

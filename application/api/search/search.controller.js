@@ -32,53 +32,53 @@ exports.index = function(req, res) {
 
 
 /*
-var scraping = function (scraper, oneSearch){
-    request({url: scraper.url , proxy:''}, function (error, response, body) {
+ var scraping = function (scraper, oneSearch){
+ request({url: scraper.url , proxy:''}, function (error, response, body) {
 
-        if (error && response.statusCode !== 200) console.log('Error when contacting google.com');
-        jsdom.env({
-            html: body,
-            scripts: [path.resolve(__dirname, 'lib/jquery-1.5.min.js'), path.resolve(__dirname, 'lib/jquery.xpath.js')],
-            done : function (err, window) {
-                var $ = window.jQuery;
+ if (error && response.statusCode !== 200) console.log('Error when contacting google.com');
+ jsdom.env({
+ html: body,
+ scripts: [path.resolve(__dirname, 'lib/jquery-1.5.min.js'), path.resolve(__dirname, 'lib/jquery.xpath.js')],
+ done : function (err, window) {
+ var $ = window.jQuery;
 
-                var image;
-                image = $('.infobox img:first').attr('src');
+ var image;
+ image = $('.infobox img:first').attr('src');
 
-                var imageTitle = $('#firstHeading').text();
-                var bubble = 'img/wikipedia.png';
-                var text = $('#mw-content-text > p').text().split('.');
-                var summary = '', i = 0;
-                while (summary.length < 500) { summary += text[i++]; }
+ var imageTitle = $('#firstHeading').text();
+ var bubble = 'img/wikipedia.png';
+ var text = $('#mw-content-text > p').text().split('.');
+ var summary = '', i = 0;
+ while (summary.length < 500) { summary += text[i++]; }
 
-                var newArticle =  {
-                    'info': {
-                        'image'         :   image,
-                        'imageTitle'    : imageTitle,
-                        'bubble'        : bubble,
-                        'link1': {
-                            'label'     : '@stephen_doe',
-                            'uri'       : '#'
-                        },
-                        'comment'       : 'Web and Graphic designer',
-                        'title'         : 'Consectetur adipisicing',
-                        'summary'       : summary
-                    }
-                };
-                console.log(newArticle);
+ var newArticle =  {
+ 'info': {
+ 'image'         :   image,
+ 'imageTitle'    : imageTitle,
+ 'bubble'        : bubble,
+ 'link1': {
+ 'label'     : '@stephen_doe',
+ 'uri'       : '#'
+ },
+ 'comment'       : 'Web and Graphic designer',
+ 'title'         : 'Consectetur adipisicing',
+ 'summary'       : summary
+ }
+ };
+ console.log(newArticle);
 
-                new Article(newArticle).save(function (err, article) {
-                    console.log(article + '****')
-                    oneSearch.articles.push(article);
-                    oneSearch.save();
-                });
+ new Article(newArticle).save(function (err, article) {
+ console.log(article + '****')
+ oneSearch.articles.push(article);
+ oneSearch.save();
+ });
 
-                return newArticle;
-            }
-        });
-    });
-}
-*/
+ return newArticle;
+ }
+ });
+ });
+ }
+ */
 
 exports.create = function(req, res) {
     Search
@@ -116,7 +116,7 @@ exports.create = function(req, res) {
                         });
 
                         agent.start(scraper.url, [req.body.query], script);
-                        
+
                     });
                 });
                 res.json('newSearch');
@@ -133,56 +133,56 @@ exports.create = function(req, res) {
 };
 
 /*
-exports.create = function(req, res) {
-    Search
-        .findOne(req.body)
-        .deepPopulate('query articles')
-        .exec(function (err, search) {
-            if (!search) {
-                //var newSearch = new Search({ query : req.body.query});
-                //newSearch.users.push(req.user);
-                //newSearch.save();
-                //req.user.searches.push(newSearch);
+ exports.create = function(req, res) {
+ Search
+ .findOne(req.body)
+ .deepPopulate('query articles')
+ .exec(function (err, search) {
+ if (!search) {
+ //var newSearch = new Search({ query : req.body.query});
+ //newSearch.users.push(req.user);
+ //newSearch.save();
+ //req.user.searches.push(newSearch);
 
-                Scraper.find({active : true}, function (err, scrapers) {
-                    console.log('Begin Scrapping');
-                    scrapers.forEach (function (scraper, index, array){
-                        console.log(' - Scrape :' + scraper.url);
-                        var script = fs.readFileSync(__dirname + '/' + scraper.script).toString();
+ Scraper.find({active : true}, function (err, scrapers) {
+ console.log('Begin Scrapping');
+ scrapers.forEach (function (scraper, index, array){
+ console.log(' - Scrape :' + scraper.url);
+ var script = fs.readFileSync(__dirname + '/' + scraper.script).toString();
 
-                        scraper.agent = wscraper.createAgent();
-                        scraper.agent.on('done', function (url, result) {
-                            console.log('save snipet from url:' + url);
-                            console.log(result);
-                            try {
-                                var newArticle = new Article(result).save();
-                                //newSearch.articles.push(newArticle);
-                                //newSearch.save();
-                                scraper.agent.next();
-                            }  catch(err) {
-                                console.log(err.message);
-                            }
+ scraper.agent = wscraper.createAgent();
+ scraper.agent.on('done', function (url, result) {
+ console.log('save snipet from url:' + url);
+ console.log(result);
+ try {
+ var newArticle = new Article(result).save();
+ //newSearch.articles.push(newArticle);
+ //newSearch.save();
+ scraper.agent.next();
+ }  catch(err) {
+ console.log(err.message);
+ }
 
-                        });
+ });
 
-                        for (var i=0 ; i < scraper.pages.length ; i++) scraper.pages[i] += req.body.query;
-                        scraper.agent.start(scraper.url, scraper.pages, script);
-                    });
-                });
+ for (var i=0 ; i < scraper.pages.length ; i++) scraper.pages[i] += req.body.query;
+ scraper.agent.start(scraper.url, scraper.pages, script);
+ });
+ });
 
-                res.json('newSearch');
+ res.json('newSearch');
 
-            } else {
-                //search.users.push(req.user);
-                //search.save();
-                //req.user.searches.push(search);
-                //req.user.save();
-                console.log('search "' + req.body.query + '" already exist : send it back to the user.');
+ } else {
+ //search.users.push(req.user);
+ //search.save();
+ //req.user.searches.push(search);
+ //req.user.save();
+ console.log('search "' + req.body.query + '" already exist : send it back to the user.');
 
-                res.json('search');
-            }
-        });
-};*/
+ res.json('search');
+ }
+ });
+ };*/
 
 exports.show = function(req, res) {
     if (req.params.query === 'mine'){
@@ -223,4 +223,3 @@ exports.destroy = function(req, res) {
         res.json({ message: 'Successfully deleted' });
     });
 };
-
